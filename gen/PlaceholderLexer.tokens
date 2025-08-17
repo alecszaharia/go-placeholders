@@ -1,0 +1,16 @@
+TEXT=1
+OPEN=2
+CLOSE=3
+END=4
+COMMA=5
+EQUALS=6
+IDENT=7
+INT=8
+DQSTRING=9
+SQSTRING=10
+WSIN=11
+'{{'=2
+'}}'=3
+'end_'=4
+','=5
+'='=6
