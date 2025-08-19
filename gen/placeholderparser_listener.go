@@ -1,4 +1,4 @@
-// Code generated from /home/alex/GolandProjects/go-placeholders/gramair/PlaceholderParser.g4 by ANTLR 4.13.2. DO NOT EDIT.
+// Code generated from /Users/alex/GolandProjects/antlr/gramair/PlaceholderParser.g4 by ANTLR 4.13.2. DO NOT EDIT.
 
 package parser // PlaceholderParser
 
@@ -17,14 +17,14 @@ type PlaceholderParserListener interface {
 	// EnterText is called when entering the text production.
 	EnterText(c *TextContext)
 
-	// EnterAttribute_list is called when entering the attribute_list production.
-	EnterAttribute_list(c *Attribute_listContext)
+	// EnterAttributeList is called when entering the attributeList production.
+	EnterAttributeList(c *AttributeListContext)
 
 	// EnterAttribute is called when entering the attribute production.
 	EnterAttribute(c *AttributeContext)
 
-	// EnterValue is called when entering the value production.
-	EnterValue(c *ValueContext)
+	// EnterAttrValue is called when entering the attrValue production.
+	EnterAttrValue(c *AttrValueContext)
 
 	// EnterBlock is called when entering the block production.
 	EnterBlock(c *BlockContext)
@@ -38,14 +38,14 @@ type PlaceholderParserListener interface {
 	// ExitText is called when exiting the text production.
 	ExitText(c *TextContext)
 
-	// ExitAttribute_list is called when exiting the attribute_list production.
-	ExitAttribute_list(c *Attribute_listContext)
+	// ExitAttributeList is called when exiting the attributeList production.
+	ExitAttributeList(c *AttributeListContext)
 
 	// ExitAttribute is called when exiting the attribute production.
 	ExitAttribute(c *AttributeContext)
 
-	// ExitValue is called when exiting the value production.
-	ExitValue(c *ValueContext)
+	// ExitAttrValue is called when exiting the attrValue production.
+	ExitAttrValue(c *AttrValueContext)
 
 	// ExitBlock is called when exiting the block production.
 	ExitBlock(c *BlockContext)

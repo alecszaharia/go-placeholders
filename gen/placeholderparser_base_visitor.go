@@ -1,4 +1,4 @@
-// Code generated from /home/alex/GolandProjects/go-placeholders/gramair/PlaceholderParser.g4 by ANTLR 4.13.2. DO NOT EDIT.
+// Code generated from /Users/alex/GolandProjects/antlr/gramair/PlaceholderParser.g4 by ANTLR 4.13.2. DO NOT EDIT.
 
 package parser // PlaceholderParser
 
@@ -20,7 +20,7 @@ func (v *BasePlaceholderParserVisitor) VisitText(ctx *TextContext) interface{} {
 	return v.VisitChildren(ctx)
 }
 
-func (v *BasePlaceholderParserVisitor) VisitAttribute_list(ctx *Attribute_listContext) interface{} {
+func (v *BasePlaceholderParserVisitor) VisitAttributeList(ctx *AttributeListContext) interface{} {
 	return v.VisitChildren(ctx)
 }
 
@@ -28,7 +28,7 @@ func (v *BasePlaceholderParserVisitor) VisitAttribute(ctx *AttributeContext) int
 	return v.VisitChildren(ctx)
 }
 
-func (v *BasePlaceholderParserVisitor) VisitValue(ctx *ValueContext) interface{} {
+func (v *BasePlaceholderParserVisitor) VisitAttrValue(ctx *AttrValueContext) interface{} {
 	return v.VisitChildren(ctx)
 }
 

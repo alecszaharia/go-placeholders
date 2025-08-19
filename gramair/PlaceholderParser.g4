@@ -18,24 +18,26 @@ text
   : TEXT
   ;
 
-attribute_list
+attributeList
   :  attribute+
   ;
 
 attribute
-  : ID EQUALS value
+  : ID EQUALS attrValue
   ;
 
-value
-  : INT
-  | STRING
+attrValue
+  : STRING
+  | TRUE
+  | FALSE
+  | NUMBER
   ;
 block
   :
-     OPEN INS_WS? blockName=ID { !strings.HasPrefix($blockName.GetText(), "end_") }? attribute_list? INS_WS? CLOSE
+     OPEN INS_WS? blockName=ID { !strings.HasPrefix($blockName.GetText(), "end_") }? attributeList? INS_WS? CLOSE
      content
      OPENEND blockEndName=ID INS_WS?  CLOSE
      { $blockName.GetText() == $blockEndName.GetText() }?
     |
-     OPEN INS_WS? blockName=ID attribute_list? INS_WS? CLOSE
+     OPEN INS_WS? blockName=ID attributeList? INS_WS? CLOSE
   ;

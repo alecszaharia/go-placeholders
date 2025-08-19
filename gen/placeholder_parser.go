@@ -1,4 +1,4 @@
-// Code generated from /home/alex/GolandProjects/go-placeholders/gramair/PlaceholderParser.g4 by ANTLR 4.13.2. DO NOT EDIT.
+// Code generated from /Users/alex/GolandProjects/antlr/gramair/PlaceholderParser.g4 by ANTLR 4.13.2. DO NOT EDIT.
 
 package parser // PlaceholderParser
 
@@ -35,48 +35,49 @@ var PlaceholderParserParserStaticData struct {
 func placeholderparserParserInit() {
 	staticData := &PlaceholderParserParserStaticData
 	staticData.LiteralNames = []string{
-		"", "'{{end_'", "'{{'", "", "", "", "'='", "", "'}}'", "", "'{'",
+		"", "'{{end_'", "'{{'", "", "", "'='", "'true'", "'false'", "", "",
+		"'}}'", "", "'{'",
 	}
 	staticData.SymbolicNames = []string{
-		"", "OPENEND", "OPEN", "TEXT", "ID", "INT", "EQUALS", "INS_WS", "CLOSE",
-		"STRING", "LBRACE_AS_TEXT",
+		"", "OPENEND", "OPEN", "TEXT", "ID", "EQUALS", "TRUE", "FALSE", "NUMBER",
+		"INS_WS", "CLOSE", "STRING", "LBRACE_AS_TEXT",
 	}
 	staticData.RuleNames = []string{
-		"template", "content", "text", "attribute_list", "attribute", "value",
+		"template", "content", "text", "attributeList", "attribute", "attrValue",
 		"block",
 	}
 	staticData.PredictionContextCache = antlr.NewPredictionContextCache()
 	staticData.serializedATN = []int32{
-		4, 1, 10, 74, 2, 0, 7, 0, 2, 1, 7, 1, 2, 2, 7, 2, 2, 3, 7, 3, 2, 4, 7,
+		4, 1, 12, 74, 2, 0, 7, 0, 2, 1, 7, 1, 2, 2, 7, 2, 2, 3, 7, 3, 2, 4, 7,
 		4, 2, 5, 7, 5, 2, 6, 7, 6, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 5, 1, 20, 8, 1,
 		10, 1, 12, 1, 23, 9, 1, 1, 2, 1, 2, 1, 3, 4, 3, 28, 8, 3, 11, 3, 12, 3,
 		29, 1, 4, 1, 4, 1, 4, 1, 4, 1, 5, 1, 5, 1, 6, 1, 6, 3, 6, 40, 8, 6, 1,
 		6, 1, 6, 1, 6, 3, 6, 45, 8, 6, 1, 6, 3, 6, 48, 8, 6, 1, 6, 1, 6, 1, 6,
 		1, 6, 1, 6, 3, 6, 55, 8, 6, 1, 6, 1, 6, 1, 6, 1, 6, 1, 6, 3, 6, 62, 8,
 		6, 1, 6, 1, 6, 3, 6, 66, 8, 6, 1, 6, 3, 6, 69, 8, 6, 1, 6, 3, 6, 72, 8,
-		6, 1, 6, 0, 0, 7, 0, 2, 4, 6, 8, 10, 12, 0, 1, 2, 0, 5, 5, 9, 9, 77, 0,
-		14, 1, 0, 0, 0, 2, 21, 1, 0, 0, 0, 4, 24, 1, 0, 0, 0, 6, 27, 1, 0, 0, 0,
-		8, 31, 1, 0, 0, 0, 10, 35, 1, 0, 0, 0, 12, 71, 1, 0, 0, 0, 14, 15, 3, 2,
-		1, 0, 15, 16, 5, 0, 0, 1, 16, 1, 1, 0, 0, 0, 17, 20, 3, 4, 2, 0, 18, 20,
-		3, 12, 6, 0, 19, 17, 1, 0, 0, 0, 19, 18, 1, 0, 0, 0, 20, 23, 1, 0, 0, 0,
-		21, 19, 1, 0, 0, 0, 21, 22, 1, 0, 0, 0, 22, 3, 1, 0, 0, 0, 23, 21, 1, 0,
-		0, 0, 24, 25, 5, 3, 0, 0, 25, 5, 1, 0, 0, 0, 26, 28, 3, 8, 4, 0, 27, 26,
-		1, 0, 0, 0, 28, 29, 1, 0, 0, 0, 29, 27, 1, 0, 0, 0, 29, 30, 1, 0, 0, 0,
-		30, 7, 1, 0, 0, 0, 31, 32, 5, 4, 0, 0, 32, 33, 5, 6, 0, 0, 33, 34, 3, 10,
-		5, 0, 34, 9, 1, 0, 0, 0, 35, 36, 7, 0, 0, 0, 36, 11, 1, 0, 0, 0, 37, 39,
-		5, 2, 0, 0, 38, 40, 5, 7, 0, 0, 39, 38, 1, 0, 0, 0, 39, 40, 1, 0, 0, 0,
-		40, 41, 1, 0, 0, 0, 41, 42, 5, 4, 0, 0, 42, 44, 4, 6, 0, 1, 43, 45, 3,
-		6, 3, 0, 44, 43, 1, 0, 0, 0, 44, 45, 1, 0, 0, 0, 45, 47, 1, 0, 0, 0, 46,
-		48, 5, 7, 0, 0, 47, 46, 1, 0, 0, 0, 47, 48, 1, 0, 0, 0, 48, 49, 1, 0, 0,
-		0, 49, 50, 5, 8, 0, 0, 50, 51, 3, 2, 1, 0, 51, 52, 5, 1, 0, 0, 52, 54,
-		5, 4, 0, 0, 53, 55, 5, 7, 0, 0, 54, 53, 1, 0, 0, 0, 54, 55, 1, 0, 0, 0,
-		55, 56, 1, 0, 0, 0, 56, 57, 5, 8, 0, 0, 57, 58, 4, 6, 1, 1, 58, 72, 1,
-		0, 0, 0, 59, 61, 5, 2, 0, 0, 60, 62, 5, 7, 0, 0, 61, 60, 1, 0, 0, 0, 61,
-		62, 1, 0, 0, 0, 62, 63, 1, 0, 0, 0, 63, 65, 5, 4, 0, 0, 64, 66, 3, 6, 3,
-		0, 65, 64, 1, 0, 0, 0, 65, 66, 1, 0, 0, 0, 66, 68, 1, 0, 0, 0, 67, 69,
-		5, 7, 0, 0, 68, 67, 1, 0, 0, 0, 68, 69, 1, 0, 0, 0, 69, 70, 1, 0, 0, 0,
-		70, 72, 5, 8, 0, 0, 71, 37, 1, 0, 0, 0, 71, 59, 1, 0, 0, 0, 72, 13, 1,
-		0, 0, 0, 11, 19, 21, 29, 39, 44, 47, 54, 61, 65, 68, 71,
+		6, 1, 6, 0, 0, 7, 0, 2, 4, 6, 8, 10, 12, 0, 1, 2, 0, 6, 8, 11, 11, 77,
+		0, 14, 1, 0, 0, 0, 2, 21, 1, 0, 0, 0, 4, 24, 1, 0, 0, 0, 6, 27, 1, 0, 0,
+		0, 8, 31, 1, 0, 0, 0, 10, 35, 1, 0, 0, 0, 12, 71, 1, 0, 0, 0, 14, 15, 3,
+		2, 1, 0, 15, 16, 5, 0, 0, 1, 16, 1, 1, 0, 0, 0, 17, 20, 3, 4, 2, 0, 18,
+		20, 3, 12, 6, 0, 19, 17, 1, 0, 0, 0, 19, 18, 1, 0, 0, 0, 20, 23, 1, 0,
+		0, 0, 21, 19, 1, 0, 0, 0, 21, 22, 1, 0, 0, 0, 22, 3, 1, 0, 0, 0, 23, 21,
+		1, 0, 0, 0, 24, 25, 5, 3, 0, 0, 25, 5, 1, 0, 0, 0, 26, 28, 3, 8, 4, 0,
+		27, 26, 1, 0, 0, 0, 28, 29, 1, 0, 0, 0, 29, 27, 1, 0, 0, 0, 29, 30, 1,
+		0, 0, 0, 30, 7, 1, 0, 0, 0, 31, 32, 5, 4, 0, 0, 32, 33, 5, 5, 0, 0, 33,
+		34, 3, 10, 5, 0, 34, 9, 1, 0, 0, 0, 35, 36, 7, 0, 0, 0, 36, 11, 1, 0, 0,
+		0, 37, 39, 5, 2, 0, 0, 38, 40, 5, 9, 0, 0, 39, 38, 1, 0, 0, 0, 39, 40,
+		1, 0, 0, 0, 40, 41, 1, 0, 0, 0, 41, 42, 5, 4, 0, 0, 42, 44, 4, 6, 0, 1,
+		43, 45, 3, 6, 3, 0, 44, 43, 1, 0, 0, 0, 44, 45, 1, 0, 0, 0, 45, 47, 1,
+		0, 0, 0, 46, 48, 5, 9, 0, 0, 47, 46, 1, 0, 0, 0, 47, 48, 1, 0, 0, 0, 48,
+		49, 1, 0, 0, 0, 49, 50, 5, 10, 0, 0, 50, 51, 3, 2, 1, 0, 51, 52, 5, 1,
+		0, 0, 52, 54, 5, 4, 0, 0, 53, 55, 5, 9, 0, 0, 54, 53, 1, 0, 0, 0, 54, 55,
+		1, 0, 0, 0, 55, 56, 1, 0, 0, 0, 56, 57, 5, 10, 0, 0, 57, 58, 4, 6, 1, 1,
+		58, 72, 1, 0, 0, 0, 59, 61, 5, 2, 0, 0, 60, 62, 5, 9, 0, 0, 61, 60, 1,
+		0, 0, 0, 61, 62, 1, 0, 0, 0, 62, 63, 1, 0, 0, 0, 63, 65, 5, 4, 0, 0, 64,
+		66, 3, 6, 3, 0, 65, 64, 1, 0, 0, 0, 65, 66, 1, 0, 0, 0, 66, 68, 1, 0, 0,
+		0, 67, 69, 5, 9, 0, 0, 68, 67, 1, 0, 0, 0, 68, 69, 1, 0, 0, 0, 69, 70,
+		1, 0, 0, 0, 70, 72, 5, 10, 0, 0, 71, 37, 1, 0, 0, 0, 71, 59, 1, 0, 0, 0,
+		72, 13, 1, 0, 0, 0, 11, 19, 21, 29, 39, 44, 47, 54, 61, 65, 68, 71,
 	}
 	deserializer := antlr.NewATNDeserializer(nil)
 	staticData.atn = deserializer.Deserialize(staticData.serializedATN)
@@ -119,23 +120,25 @@ const (
 	PlaceholderParserOPEN           = 2
 	PlaceholderParserTEXT           = 3
 	PlaceholderParserID             = 4
-	PlaceholderParserINT            = 5
-	PlaceholderParserEQUALS         = 6
-	PlaceholderParserINS_WS         = 7
-	PlaceholderParserCLOSE          = 8
-	PlaceholderParserSTRING         = 9
-	PlaceholderParserLBRACE_AS_TEXT = 10
+	PlaceholderParserEQUALS         = 5
+	PlaceholderParserTRUE           = 6
+	PlaceholderParserFALSE          = 7
+	PlaceholderParserNUMBER         = 8
+	PlaceholderParserINS_WS         = 9
+	PlaceholderParserCLOSE          = 10
+	PlaceholderParserSTRING         = 11
+	PlaceholderParserLBRACE_AS_TEXT = 12
 )
 
 // PlaceholderParser rules.
 const (
-	PlaceholderParserRULE_template       = 0
-	PlaceholderParserRULE_content        = 1
-	PlaceholderParserRULE_text           = 2
-	PlaceholderParserRULE_attribute_list = 3
-	PlaceholderParserRULE_attribute      = 4
-	PlaceholderParserRULE_value          = 5
-	PlaceholderParserRULE_block          = 6
+	PlaceholderParserRULE_template      = 0
+	PlaceholderParserRULE_content       = 1
+	PlaceholderParserRULE_text          = 2
+	PlaceholderParserRULE_attributeList = 3
+	PlaceholderParserRULE_attribute     = 4
+	PlaceholderParserRULE_attrValue     = 5
+	PlaceholderParserRULE_block         = 6
 )
 
 // ITemplateContext is an interface to support dynamic dispatch.
@@ -591,8 +594,8 @@ errorExit:
 	goto errorExit // Trick to prevent compiler error if the label is not used
 }
 
-// IAttribute_listContext is an interface to support dynamic dispatch.
-type IAttribute_listContext interface {
+// IAttributeListContext is an interface to support dynamic dispatch.
+type IAttributeListContext interface {
 	antlr.ParserRuleContext
 
 	// GetParser returns the parser.
@@ -602,43 +605,43 @@ type IAttribute_listContext interface {
 	AllAttribute() []IAttributeContext
 	Attribute(i int) IAttributeContext
 
-	// IsAttribute_listContext differentiates from other interfaces.
-	IsAttribute_listContext()
+	// IsAttributeListContext differentiates from other interfaces.
+	IsAttributeListContext()
 }
 
-type Attribute_listContext struct {
+type AttributeListContext struct {
 	antlr.BaseParserRuleContext
 	parser antlr.Parser
 }
 
-func NewEmptyAttribute_listContext() *Attribute_listContext {
-	var p = new(Attribute_listContext)
+func NewEmptyAttributeListContext() *AttributeListContext {
+	var p = new(AttributeListContext)
 	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, nil, -1)
-	p.RuleIndex = PlaceholderParserRULE_attribute_list
+	p.RuleIndex = PlaceholderParserRULE_attributeList
 	return p
 }
 
-func InitEmptyAttribute_listContext(p *Attribute_listContext) {
+func InitEmptyAttributeListContext(p *AttributeListContext) {
 	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, nil, -1)
-	p.RuleIndex = PlaceholderParserRULE_attribute_list
+	p.RuleIndex = PlaceholderParserRULE_attributeList
 }
 
-func (*Attribute_listContext) IsAttribute_listContext() {}
+func (*AttributeListContext) IsAttributeListContext() {}
 
-func NewAttribute_listContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *Attribute_listContext {
-	var p = new(Attribute_listContext)
+func NewAttributeListContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *AttributeListContext {
+	var p = new(AttributeListContext)
 
 	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, parent, invokingState)
 
 	p.parser = parser
-	p.RuleIndex = PlaceholderParserRULE_attribute_list
+	p.RuleIndex = PlaceholderParserRULE_attributeList
 
 	return p
 }
 
-func (s *Attribute_listContext) GetParser() antlr.Parser { return s.parser }
+func (s *AttributeListContext) GetParser() antlr.Parser { return s.parser }
 
-func (s *Attribute_listContext) AllAttribute() []IAttributeContext {
+func (s *AttributeListContext) AllAttribute() []IAttributeContext {
 	children := s.GetChildren()
 	len := 0
 	for _, ctx := range children {
@@ -659,7 +662,7 @@ func (s *Attribute_listContext) AllAttribute() []IAttributeContext {
 	return tst
 }
 
-func (s *Attribute_listContext) Attribute(i int) IAttributeContext {
+func (s *AttributeListContext) Attribute(i int) IAttributeContext {
 	var t antlr.RuleContext
 	j := 0
 	for _, ctx := range s.GetChildren() {
@@ -679,39 +682,39 @@ func (s *Attribute_listContext) Attribute(i int) IAttributeContext {
 	return t.(IAttributeContext)
 }
 
-func (s *Attribute_listContext) GetRuleContext() antlr.RuleContext {
+func (s *AttributeListContext) GetRuleContext() antlr.RuleContext {
 	return s
 }
 
-func (s *Attribute_listContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
+func (s *AttributeListContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
 	return antlr.TreesStringTree(s, ruleNames, recog)
 }
 
-func (s *Attribute_listContext) EnterRule(listener antlr.ParseTreeListener) {
+func (s *AttributeListContext) EnterRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(PlaceholderParserListener); ok {
-		listenerT.EnterAttribute_list(s)
+		listenerT.EnterAttributeList(s)
 	}
 }
 
-func (s *Attribute_listContext) ExitRule(listener antlr.ParseTreeListener) {
+func (s *AttributeListContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(PlaceholderParserListener); ok {
-		listenerT.ExitAttribute_list(s)
+		listenerT.ExitAttributeList(s)
 	}
 }
 
-func (s *Attribute_listContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+func (s *AttributeListContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
 	switch t := visitor.(type) {
 	case PlaceholderParserVisitor:
-		return t.VisitAttribute_list(s)
+		return t.VisitAttributeList(s)
 
 	default:
 		return t.VisitChildren(s)
 	}
 }
 
-func (p *PlaceholderParser) Attribute_list() (localctx IAttribute_listContext) {
-	localctx = NewAttribute_listContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 6, PlaceholderParserRULE_attribute_list)
+func (p *PlaceholderParser) AttributeList() (localctx IAttributeListContext) {
+	localctx = NewAttributeListContext(p, p.GetParserRuleContext(), p.GetState())
+	p.EnterRule(localctx, 6, PlaceholderParserRULE_attributeList)
 	var _la int
 
 	p.EnterOuterAlt(localctx, 1)
@@ -759,7 +762,7 @@ type IAttributeContext interface {
 	// Getter signatures
 	ID() antlr.TerminalNode
 	EQUALS() antlr.TerminalNode
-	Value() IValueContext
+	AttrValue() IAttrValueContext
 
 	// IsAttributeContext differentiates from other interfaces.
 	IsAttributeContext()
@@ -805,10 +808,10 @@ func (s *AttributeContext) EQUALS() antlr.TerminalNode {
 	return s.GetToken(PlaceholderParserEQUALS, 0)
 }
 
-func (s *AttributeContext) Value() IValueContext {
+func (s *AttributeContext) AttrValue() IAttrValueContext {
 	var t antlr.RuleContext
 	for _, ctx := range s.GetChildren() {
-		if _, ok := ctx.(IValueContext); ok {
+		if _, ok := ctx.(IAttrValueContext); ok {
 			t = ctx.(antlr.RuleContext)
 			break
 		}
@@ -818,7 +821,7 @@ func (s *AttributeContext) Value() IValueContext {
 		return nil
 	}
 
-	return t.(IValueContext)
+	return t.(IAttrValueContext)
 }
 
 func (s *AttributeContext) GetRuleContext() antlr.RuleContext {
@@ -873,7 +876,7 @@ func (p *PlaceholderParser) Attribute() (localctx IAttributeContext) {
 	}
 	{
 		p.SetState(33)
-		p.Value()
+		p.AttrValue()
 	}
 
 errorExit:
@@ -889,94 +892,104 @@ errorExit:
 	goto errorExit // Trick to prevent compiler error if the label is not used
 }
 
-// IValueContext is an interface to support dynamic dispatch.
-type IValueContext interface {
+// IAttrValueContext is an interface to support dynamic dispatch.
+type IAttrValueContext interface {
 	antlr.ParserRuleContext
 
 	// GetParser returns the parser.
 	GetParser() antlr.Parser
 
 	// Getter signatures
-	INT() antlr.TerminalNode
 	STRING() antlr.TerminalNode
+	TRUE() antlr.TerminalNode
+	FALSE() antlr.TerminalNode
+	NUMBER() antlr.TerminalNode
 
-	// IsValueContext differentiates from other interfaces.
-	IsValueContext()
+	// IsAttrValueContext differentiates from other interfaces.
+	IsAttrValueContext()
 }
 
-type ValueContext struct {
+type AttrValueContext struct {
 	antlr.BaseParserRuleContext
 	parser antlr.Parser
 }
 
-func NewEmptyValueContext() *ValueContext {
-	var p = new(ValueContext)
+func NewEmptyAttrValueContext() *AttrValueContext {
+	var p = new(AttrValueContext)
 	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, nil, -1)
-	p.RuleIndex = PlaceholderParserRULE_value
+	p.RuleIndex = PlaceholderParserRULE_attrValue
 	return p
 }
 
-func InitEmptyValueContext(p *ValueContext) {
+func InitEmptyAttrValueContext(p *AttrValueContext) {
 	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, nil, -1)
-	p.RuleIndex = PlaceholderParserRULE_value
+	p.RuleIndex = PlaceholderParserRULE_attrValue
 }
 
-func (*ValueContext) IsValueContext() {}
+func (*AttrValueContext) IsAttrValueContext() {}
 
-func NewValueContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *ValueContext {
-	var p = new(ValueContext)
+func NewAttrValueContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *AttrValueContext {
+	var p = new(AttrValueContext)
 
 	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, parent, invokingState)
 
 	p.parser = parser
-	p.RuleIndex = PlaceholderParserRULE_value
+	p.RuleIndex = PlaceholderParserRULE_attrValue
 
 	return p
 }
 
-func (s *ValueContext) GetParser() antlr.Parser { return s.parser }
+func (s *AttrValueContext) GetParser() antlr.Parser { return s.parser }
 
-func (s *ValueContext) INT() antlr.TerminalNode {
-	return s.GetToken(PlaceholderParserINT, 0)
-}
-
-func (s *ValueContext) STRING() antlr.TerminalNode {
+func (s *AttrValueContext) STRING() antlr.TerminalNode {
 	return s.GetToken(PlaceholderParserSTRING, 0)
 }
 
-func (s *ValueContext) GetRuleContext() antlr.RuleContext {
+func (s *AttrValueContext) TRUE() antlr.TerminalNode {
+	return s.GetToken(PlaceholderParserTRUE, 0)
+}
+
+func (s *AttrValueContext) FALSE() antlr.TerminalNode {
+	return s.GetToken(PlaceholderParserFALSE, 0)
+}
+
+func (s *AttrValueContext) NUMBER() antlr.TerminalNode {
+	return s.GetToken(PlaceholderParserNUMBER, 0)
+}
+
+func (s *AttrValueContext) GetRuleContext() antlr.RuleContext {
 	return s
 }
 
-func (s *ValueContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
+func (s *AttrValueContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
 	return antlr.TreesStringTree(s, ruleNames, recog)
 }
 
-func (s *ValueContext) EnterRule(listener antlr.ParseTreeListener) {
+func (s *AttrValueContext) EnterRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(PlaceholderParserListener); ok {
-		listenerT.EnterValue(s)
+		listenerT.EnterAttrValue(s)
 	}
 }
 
-func (s *ValueContext) ExitRule(listener antlr.ParseTreeListener) {
+func (s *AttrValueContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(PlaceholderParserListener); ok {
-		listenerT.ExitValue(s)
+		listenerT.ExitAttrValue(s)
 	}
 }
 
-func (s *ValueContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+func (s *AttrValueContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
 	switch t := visitor.(type) {
 	case PlaceholderParserVisitor:
-		return t.VisitValue(s)
+		return t.VisitAttrValue(s)
 
 	default:
 		return t.VisitChildren(s)
 	}
 }
 
-func (p *PlaceholderParser) Value() (localctx IValueContext) {
-	localctx = NewValueContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 10, PlaceholderParserRULE_value)
+func (p *PlaceholderParser) AttrValue() (localctx IAttrValueContext) {
+	localctx = NewAttrValueContext(p, p.GetParserRuleContext(), p.GetState())
+	p.EnterRule(localctx, 10, PlaceholderParserRULE_attrValue)
 	var _la int
 
 	p.EnterOuterAlt(localctx, 1)
@@ -984,7 +997,7 @@ func (p *PlaceholderParser) Value() (localctx IValueContext) {
 		p.SetState(35)
 		_la = p.GetTokenStream().LA(1)
 
-		if !(_la == PlaceholderParserINT || _la == PlaceholderParserSTRING) {
+		if !((int64(_la) & ^0x3f) == 0 && ((int64(1)<<_la)&2496) != 0) {
 			p.GetErrorHandler().RecoverInline(p)
 		} else {
 			p.GetErrorHandler().ReportMatch(p)
@@ -1034,7 +1047,7 @@ type IBlockContext interface {
 	ID(i int) antlr.TerminalNode
 	AllINS_WS() []antlr.TerminalNode
 	INS_WS(i int) antlr.TerminalNode
-	Attribute_list() IAttribute_listContext
+	AttributeList() IAttributeListContext
 
 	// IsBlockContext differentiates from other interfaces.
 	IsBlockContext()
@@ -1130,10 +1143,10 @@ func (s *BlockContext) INS_WS(i int) antlr.TerminalNode {
 	return s.GetToken(PlaceholderParserINS_WS, i)
 }
 
-func (s *BlockContext) Attribute_list() IAttribute_listContext {
+func (s *BlockContext) AttributeList() IAttributeListContext {
 	var t antlr.RuleContext
 	for _, ctx := range s.GetChildren() {
-		if _, ok := ctx.(IAttribute_listContext); ok {
+		if _, ok := ctx.(IAttributeListContext); ok {
 			t = ctx.(antlr.RuleContext)
 			break
 		}
@@ -1143,7 +1156,7 @@ func (s *BlockContext) Attribute_list() IAttribute_listContext {
 		return nil
 	}
 
-	return t.(IAttribute_listContext)
+	return t.(IAttributeListContext)
 }
 
 func (s *BlockContext) GetRuleContext() antlr.RuleContext {
@@ -1243,7 +1256,7 @@ func (p *PlaceholderParser) Block() (localctx IBlockContext) {
 		if _la == PlaceholderParserID {
 			{
 				p.SetState(43)
-				p.Attribute_list()
+				p.AttributeList()
 			}
 
 		}
@@ -1378,7 +1391,7 @@ func (p *PlaceholderParser) Block() (localctx IBlockContext) {
 		if _la == PlaceholderParserID {
 			{
 				p.SetState(64)
-				p.Attribute_list()
+				p.AttributeList()
 			}
 
 		}

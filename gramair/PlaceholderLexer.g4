@@ -13,13 +13,17 @@ LBRACE_AS_TEXT : '{' -> type(TEXT);  // treat single '{' as plain text
 mode INSIDE; // tokens recognized between OPEN and CLOSE
 
 ID      : [a-zA-Z_][a-zA-Z0-9_]* ;
-INT     : [0-9]+ ;
 EQUALS  : '=' ;
+TRUE   : 'true' ;
+FALSE  : 'false' ;
+NUMBER : '-'? DIGIT+ ('.' DIGIT+)? ;
+fragment DIGIT : [0-9] ;
 INS_WS  : [ \t\r\n]+ -> skip ;
 CLOSE   : '}}' -> popMode ;
 INS_ANY : . -> type(TEXT); // safety net so weird chars don't error inside {{...}}
 
 // double-quoted string with escapes
+
 STRING
   : '"'  ( '\\' . | ~["\\\r\n] )* '"'
   | '\'' ( '\\' . | ~['\\\r\n] )* '\''
