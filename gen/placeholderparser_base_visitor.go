@@ -1,4 +1,4 @@
-// Code generated from /Users/alex/GolandProjects/antlr/gramair/PlaceholderParser.g4 by ANTLR 4.13.2. DO NOT EDIT.
+// Code generated from /home/alex/GolandProjects/go-placeholders/gramair/PlaceholderParser.g4 by ANTLR 4.13.2. DO NOT EDIT.
 
 package parser // PlaceholderParser
 
@@ -12,19 +12,11 @@ func (v *BasePlaceholderParserVisitor) VisitTemplate(ctx *TemplateContext) inter
 	return v.VisitChildren(ctx)
 }
 
+func (v *BasePlaceholderParserVisitor) VisitContent(ctx *ContentContext) interface{} {
+	return v.VisitChildren(ctx)
+}
+
 func (v *BasePlaceholderParserVisitor) VisitText(ctx *TextContext) interface{} {
-	return v.VisitChildren(ctx)
-}
-
-func (v *BasePlaceholderParserVisitor) VisitPlaceholder(ctx *PlaceholderContext) interface{} {
-	return v.VisitChildren(ctx)
-}
-
-func (v *BasePlaceholderParserVisitor) VisitSimple_placeholder(ctx *Simple_placeholderContext) interface{} {
-	return v.VisitChildren(ctx)
-}
-
-func (v *BasePlaceholderParserVisitor) VisitBlock_placeholder(ctx *Block_placeholderContext) interface{} {
 	return v.VisitChildren(ctx)
 }
 
@@ -37,5 +29,9 @@ func (v *BasePlaceholderParserVisitor) VisitAttribute(ctx *AttributeContext) int
 }
 
 func (v *BasePlaceholderParserVisitor) VisitValue(ctx *ValueContext) interface{} {
+	return v.VisitChildren(ctx)
+}
+
+func (v *BasePlaceholderParserVisitor) VisitBlock(ctx *BlockContext) interface{} {
 	return v.VisitChildren(ctx)
 }

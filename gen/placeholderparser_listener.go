@@ -1,4 +1,4 @@
-// Code generated from /Users/alex/GolandProjects/antlr/gramair/PlaceholderParser.g4 by ANTLR 4.13.2. DO NOT EDIT.
+// Code generated from /home/alex/GolandProjects/go-placeholders/gramair/PlaceholderParser.g4 by ANTLR 4.13.2. DO NOT EDIT.
 
 package parser // PlaceholderParser
 
@@ -11,17 +11,11 @@ type PlaceholderParserListener interface {
 	// EnterTemplate is called when entering the template production.
 	EnterTemplate(c *TemplateContext)
 
+	// EnterContent is called when entering the content production.
+	EnterContent(c *ContentContext)
+
 	// EnterText is called when entering the text production.
 	EnterText(c *TextContext)
-
-	// EnterPlaceholder is called when entering the placeholder production.
-	EnterPlaceholder(c *PlaceholderContext)
-
-	// EnterSimple_placeholder is called when entering the simple_placeholder production.
-	EnterSimple_placeholder(c *Simple_placeholderContext)
-
-	// EnterBlock_placeholder is called when entering the block_placeholder production.
-	EnterBlock_placeholder(c *Block_placeholderContext)
 
 	// EnterAttribute_list is called when entering the attribute_list production.
 	EnterAttribute_list(c *Attribute_listContext)
@@ -32,20 +26,17 @@ type PlaceholderParserListener interface {
 	// EnterValue is called when entering the value production.
 	EnterValue(c *ValueContext)
 
+	// EnterBlock is called when entering the block production.
+	EnterBlock(c *BlockContext)
+
 	// ExitTemplate is called when exiting the template production.
 	ExitTemplate(c *TemplateContext)
 
+	// ExitContent is called when exiting the content production.
+	ExitContent(c *ContentContext)
+
 	// ExitText is called when exiting the text production.
 	ExitText(c *TextContext)
-
-	// ExitPlaceholder is called when exiting the placeholder production.
-	ExitPlaceholder(c *PlaceholderContext)
-
-	// ExitSimple_placeholder is called when exiting the simple_placeholder production.
-	ExitSimple_placeholder(c *Simple_placeholderContext)
-
-	// ExitBlock_placeholder is called when exiting the block_placeholder production.
-	ExitBlock_placeholder(c *Block_placeholderContext)
 
 	// ExitAttribute_list is called when exiting the attribute_list production.
 	ExitAttribute_list(c *Attribute_listContext)
@@ -55,4 +46,7 @@ type PlaceholderParserListener interface {
 
 	// ExitValue is called when exiting the value production.
 	ExitValue(c *ValueContext)
+
+	// ExitBlock is called when exiting the block production.
+	ExitBlock(c *BlockContext)
 }

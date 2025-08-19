@@ -1,46 +1,41 @@
 parser grammar PlaceholderParser;
 
 options { tokenVocab=PlaceholderLexer; }
-
+@parser::header { import "strings" }
 // ----------------------
 // Parser rules
 // ----------------------
 
 template
-  : (text | placeholder)* EOF
+  : content EOF
   ;
+
+content
+    : (text | block)*
+    ;
 
 text
   : TEXT
   ;
 
-placeholder
-  : simple_placeholder
-  | block_placeholder
-  ;
-
-simple_placeholder
-  : OPEN IDENT attribute_list? CLOSE
-  ;
-
-block_placeholder
-  : OPEN head=IDENT attribute_list? CLOSE
-    template
-    OPEN END tail=IDENT CLOSE
-    // To enforce matching names (Go target), uncomment:
-    { $head.text == $tail.text }?
-  ;
-
 attribute_list
-  : attribute (COMMA attribute)*
+  :  attribute+
   ;
 
 attribute
-  : IDENT EQUALS value
+  : ID EQUALS value
   ;
 
 value
   : INT
-  | DQSTRING
-  | SQSTRING
+  | STRING
+  ;
+block
+  :
+     OPEN INS_WS? blockName=ID { !strings.HasPrefix($blockName.GetText(), "end_") }? attribute_list? INS_WS? CLOSE
+     content
+     OPENEND blockEndName=ID INS_WS?  CLOSE
+     { $blockName.GetText() == $blockEndName.GetText() }?
+    |
+     OPEN INS_WS? blockName=ID attribute_list? INS_WS? CLOSE
   ;

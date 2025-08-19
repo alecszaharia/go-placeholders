@@ -2,28 +2,25 @@ lexer grammar PlaceholderLexer;
 
 // ------------- Default mode (plain text) -------------
 
-TEXT
-  : ( ~'{' | '{' ~'{' )+           // any chars that don't start '{{'
-  ;
+OPENEND : '{{end_'  -> pushMode(INSIDE); // close-tag opener
+OPEN    : '{{'      -> pushMode(INSIDE); // normal opener
+TEXT    : ( ~'{' | '{' ~'{' )+ ;                     // any run of non-'{'
+//TEXT    : [^{]+;                  // any run of non-'{'
+LBRACE_AS_TEXT : '{' -> type(TEXT);  // treat single '{' as plain text
 
-OPEN
-  : '{{' -> pushMode(INSIDE)
-  ;
 
-// ------------- Placeholder-inside mode -------------
-mode INSIDE;
+// ------------- Inside mode (placeholders) -------------
+mode INSIDE; // tokens recognized between OPEN and CLOSE
 
-CLOSE     : '}}' -> popMode ;
-END       : 'end_' ;
-COMMA     : ',' ;
-EQUALS    : '=' ;
-IDENT     : [a-zA-Z_] [a-zA-Z_0-9]* ;
-INT       : [0-9]+ ;
+ID      : [a-zA-Z_][a-zA-Z0-9_]* ;
+INT     : [0-9]+ ;
+EQUALS  : '=' ;
+INS_WS  : [ \t\r\n]+ -> skip ;
+CLOSE   : '}}' -> popMode ;
+INS_ANY : . -> type(TEXT); // safety net so weird chars don't error inside {{...}}
 
 // double-quoted string with escapes
-DQSTRING  : '"' ( ~["\\] | '\\' . )* '"' ;
-// single-quoted string with escapes
-SQSTRING  : '\'' ( ~['\\] | '\\' . )* '\'' ;
-
-// ignore whitespace inside {{ ... }}
-WSIN      : [ \t\r\n]+ -> skip ;
+STRING
+  : '"'  ( '\\' . | ~["\\\r\n] )* '"'
+  | '\'' ( '\\' . | ~['\\\r\n] )* '\''
+  ;

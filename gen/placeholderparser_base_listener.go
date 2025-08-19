@@ -1,4 +1,4 @@
-// Code generated from /Users/alex/GolandProjects/antlr/gramair/PlaceholderParser.g4 by ANTLR 4.13.2. DO NOT EDIT.
+// Code generated from /home/alex/GolandProjects/go-placeholders/gramair/PlaceholderParser.g4 by ANTLR 4.13.2. DO NOT EDIT.
 
 package parser // PlaceholderParser
 
@@ -27,29 +27,17 @@ func (s *BasePlaceholderParserListener) EnterTemplate(ctx *TemplateContext) {}
 // ExitTemplate is called when production template is exited.
 func (s *BasePlaceholderParserListener) ExitTemplate(ctx *TemplateContext) {}
 
+// EnterContent is called when production content is entered.
+func (s *BasePlaceholderParserListener) EnterContent(ctx *ContentContext) {}
+
+// ExitContent is called when production content is exited.
+func (s *BasePlaceholderParserListener) ExitContent(ctx *ContentContext) {}
+
 // EnterText is called when production text is entered.
 func (s *BasePlaceholderParserListener) EnterText(ctx *TextContext) {}
 
 // ExitText is called when production text is exited.
 func (s *BasePlaceholderParserListener) ExitText(ctx *TextContext) {}
-
-// EnterPlaceholder is called when production placeholder is entered.
-func (s *BasePlaceholderParserListener) EnterPlaceholder(ctx *PlaceholderContext) {}
-
-// ExitPlaceholder is called when production placeholder is exited.
-func (s *BasePlaceholderParserListener) ExitPlaceholder(ctx *PlaceholderContext) {}
-
-// EnterSimple_placeholder is called when production simple_placeholder is entered.
-func (s *BasePlaceholderParserListener) EnterSimple_placeholder(ctx *Simple_placeholderContext) {}
-
-// ExitSimple_placeholder is called when production simple_placeholder is exited.
-func (s *BasePlaceholderParserListener) ExitSimple_placeholder(ctx *Simple_placeholderContext) {}
-
-// EnterBlock_placeholder is called when production block_placeholder is entered.
-func (s *BasePlaceholderParserListener) EnterBlock_placeholder(ctx *Block_placeholderContext) {}
-
-// ExitBlock_placeholder is called when production block_placeholder is exited.
-func (s *BasePlaceholderParserListener) ExitBlock_placeholder(ctx *Block_placeholderContext) {}
 
 // EnterAttribute_list is called when production attribute_list is entered.
 func (s *BasePlaceholderParserListener) EnterAttribute_list(ctx *Attribute_listContext) {}
@@ -68,3 +56,9 @@ func (s *BasePlaceholderParserListener) EnterValue(ctx *ValueContext) {}
 
 // ExitValue is called when production value is exited.
 func (s *BasePlaceholderParserListener) ExitValue(ctx *ValueContext) {}
+
+// EnterBlock is called when production block is entered.
+func (s *BasePlaceholderParserListener) EnterBlock(ctx *BlockContext) {}
+
+// ExitBlock is called when production block is exited.
+func (s *BasePlaceholderParserListener) ExitBlock(ctx *BlockContext) {}
