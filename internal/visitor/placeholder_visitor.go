@@ -2,13 +2,22 @@ package visitor
 
 import (
 	parser "antrl/gen"
+
+	"github.com/antlr4-go/antlr/v4"
 )
 
-type Block struct {
-	Name    string
-	Content string
-	HasEnd  bool
-	Attrs   []Attr
+type ReplaceContext struct {
+	ParentContext *ReplaceContext
+	Placeholder   *Placeholder
+}
+
+type Placeholder struct {
+	Name     string
+	Content  string
+	HasEnd   bool
+	Attrs    []Attr
+	Parent   *Placeholder
+	Children []*Placeholder
 }
 
 type Attr struct {
@@ -16,16 +25,19 @@ type Attr struct {
 	Value string
 }
 
-func NewPlaceholdersVisitor() *PlaceholdersVisitor {
+func NewPlaceholdersVisitor(tokens *antlr.CommonTokenStream) *PlaceholdersVisitor {
 	return &PlaceholdersVisitor{
 		BasePlaceholderParserVisitor: &parser.BasePlaceholderParserVisitor{},
+		Rewriter:                     antlr.NewTokenStreamRewriter(tokens),
 	}
 }
 
 type PlaceholdersVisitor struct {
 	*parser.BasePlaceholderParserVisitor
-	Blocks []Block
-	Block  *Block
+	Rewriter         *antlr.TokenStreamRewriter
+	Placeholders     []Placeholder
+	PlaceholderTrees []*Placeholder
+	Placeholder      *Placeholder
 }
 
 func (v *PlaceholdersVisitor) VisitTemplate(ctx *parser.TemplateContext) interface{} {
@@ -36,12 +48,10 @@ func (v *PlaceholdersVisitor) VisitTemplate(ctx *parser.TemplateContext) interfa
 
 func (v *PlaceholdersVisitor) VisitContent(ctx *parser.ContentContext) interface{} {
 	//fmt.Printf("Visiting Content: %s\n", ctx.GetText())
-	for _, child := range ctx.AllBlock() {
+	for _, child := range ctx.AllPlaceholder() {
 		child.Accept(v)
 	}
-	//for _, child := range ctx.AllText() {
-	//	child.Accept(v)
-	//}
+
 	return v.VisitChildren(ctx) // Visit the first placeholder
 }
 
@@ -52,7 +62,7 @@ func (v *PlaceholdersVisitor) VisitAttributeList(ctx *parser.AttributeListContex
 		//fmt.Printf("Attribute: %s = %s\n", child.ID().GetText(), child.AttrValue().GetText())
 		attrs = append(attrs, Attr{Name: child.ID().GetText(), Value: child.AttrValue().GetText()})
 	}
-	v.Block.Attrs = attrs
+	v.Placeholder.Attrs = attrs
 	return v.VisitChildren(ctx) // Visit the first placeholder
 }
 
@@ -66,32 +76,56 @@ func (v *PlaceholdersVisitor) VisitAttributeList(ctx *parser.AttributeListContex
 //	return v.VisitChildren(ctx) // Visit the first placeholder
 //}
 
-func (v *PlaceholdersVisitor) VisitText(ctx *parser.TextContext) interface{} {
-	//fmt.Printf("Visiting Text: %s\n", ctx.GetText())
-	return v.VisitChildren(ctx) // Visit the first placeholder
-}
+//func (v *PlaceholdersVisitor) VisitText(ctx *parser.TextContext) interface{} {
+//	//fmt.Printf("Visiting Text: %s\n", ctx.GetText())
+//	return v.VisitChildren(ctx) // Visit the first placeholder
+//}
 
-func (v *PlaceholdersVisitor) VisitBlock(ctx *parser.BlockContext) interface{} {
+func (v *PlaceholdersVisitor) VisitPlaceholder(ctx *parser.PlaceholderContext) interface{} {
+	parentPlaceholder := v.Placeholder
+	b := Placeholder{
+		HasEnd:   false,
+		Parent:   parentPlaceholder,
+		Children: make([]*Placeholder, 0, 30), // Preallocate for up to 30 children
+	}
 
-	//fmt.Printf("VisitBlock: %s\n", ctx.GetText())
-
-	b := Block{HasEnd: false}
-	v.Block = &b
-	b.Name = ctx.GetBlockName().GetText()
+	b.Name = ctx.GetPlaceholderName().GetText()
 
 	if ctx.Content() != nil {
 		b.Content = ctx.Content().GetText()
-		ctx.Content().Accept(v)
 	}
 
-	if ctx.GetBlockEndName() != nil {
+	if ctx.GetPlaceholderEndName() != nil {
 		b.HasEnd = true
 	}
 
+	v.Placeholder = &b
+
 	if ctx.AttributeList() != nil {
+		// Temporarily set v.Placeholder for attribute parsing
 		ctx.AttributeList().Accept(v)
 	}
 
-	v.Blocks = append(v.Blocks, b)
+	// Restore visitor's block pointer for recursion
+	if parentPlaceholder != nil {
+		parentPlaceholder.Children = append(parentPlaceholder.Children, &b)
+	}
+
+	v.Placeholders = append(v.Placeholders, b)
+	if b.Parent == nil {
+		v.PlaceholderTrees = append(v.PlaceholderTrees, &b)
+	}
+
+	// Recursively visit content (children blocks)
+	if ctx.Content() != nil {
+		ctx.Content().Accept(v)
+	}
+
+	v.Rewriter.ReplaceDefault(
+		ctx.GetStart().GetTokenIndex(),
+		ctx.GetStop().GetTokenIndex(),
+		"",
+	)
+
 	return v.VisitChildren(ctx)
 }

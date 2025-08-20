@@ -11,7 +11,7 @@ template
   ;
 
 content
-    : (text | block)*
+    : (text | placeholder)*
     ;
 
 text
@@ -32,12 +32,12 @@ attrValue
   | FALSE
   | NUMBER
   ;
-block
+placeholder
   :
-     OPEN INS_WS? blockName=ID { !strings.HasPrefix($blockName.GetText(), "end_") }? attributeList? INS_WS? CLOSE
+     OPEN INS_WS? placeholderName=ID { !strings.HasPrefix($placeholderName.GetText(), "end_") }? attributeList? INS_WS? CLOSE
      content
-     OPENEND blockEndName=ID INS_WS?  CLOSE
-     { $blockName.GetText() == $blockEndName.GetText() }?
+     OPENEND placeholderEndName=ID INS_WS?  CLOSE
+     { $placeholderName.GetText() == $placeholderEndName.GetText() }?
     |
-     OPEN INS_WS? blockName=ID attributeList? INS_WS? CLOSE
+     OPEN INS_WS? placeholderName=ID attributeList? INS_WS? CLOSE
   ;
