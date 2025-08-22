@@ -1,4 +1,4 @@
-// Code generated from /Users/alex/GolandProjects/antlr/gramair/PlaceholderParser.g4 by ANTLR 4.13.2. DO NOT EDIT.
+// Code generated from /home/alex/GolandProjects/go-placeholders/gramair/PlaceholderParser.g4 by ANTLR 4.13.2. DO NOT EDIT.
 
 package parser // PlaceholderParser
 
@@ -16,6 +16,24 @@ type PlaceholderParserVisitor interface {
 
 	// Visit a parse tree produced by PlaceholderParser#text.
 	VisitText(ctx *TextContext) interface{}
+
+	// Visit a parse tree produced by PlaceholderParser#attribute.
+	VisitAttribute(ctx *AttributeContext) interface{}
+
+	// Visit a parse tree produced by PlaceholderParser#simplePlaceholder.
+	VisitSimplePlaceholder(ctx *SimplePlaceholderContext) interface{}
+
+	// Visit a parse tree produced by PlaceholderParser#blockPlaceholder.
+	VisitBlockPlaceholder(ctx *BlockPlaceholderContext) interface{}
+
+	// Visit a parse tree produced by PlaceholderParser#blockPlaceholderStart.
+	VisitBlockPlaceholderStart(ctx *BlockPlaceholderStartContext) interface{}
+
+	// Visit a parse tree produced by PlaceholderParser#blockPlaceholderEnd.
+	VisitBlockPlaceholderEnd(ctx *BlockPlaceholderEndContext) interface{}
+
+	// Visit a parse tree produced by PlaceholderParser#blockPlaceholderContent.
+	VisitBlockPlaceholderContent(ctx *BlockPlaceholderContentContext) interface{}
 
 	// Visit a parse tree produced by PlaceholderParser#placeholder.
 	VisitPlaceholder(ctx *PlaceholderContext) interface{}

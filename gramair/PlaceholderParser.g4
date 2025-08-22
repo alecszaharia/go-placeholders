@@ -1,9 +1,6 @@
 parser grammar PlaceholderParser;
 
 options { tokenVocab=PlaceholderLexer; }
-@parser::header {
-
-}
 // ----------------------
 // Parser rules
 // ----------------------
@@ -20,33 +17,30 @@ text
   : TEXT
   ;
 
+attribute
+  : name=ID EQ value=STRING
+  ;
 
-//placeholder
-//  :
-//     OPEN INS_WS? placeholderName=ID attributeList? INS_WS? CLOSE
-//     (
-//        content
-//        OPEN END placeholderEndName=ID INS_WS?
-//        { $placeholderName.GetText() == $placeholderEndName.GetText() }?
-//        CLOSE
-//     )?
-//  ;
-//
-//
-// Package-level helpers for the Go target
+simplePlaceholder
+  : OPEN placeholderName=ID attribute* CLOSE
+  ;
+
+blockPlaceholder
+  : blockPlaceholderStart
+    blockPlaceholderContent
+    blockPlaceholderEnd
+  ;
+
+blockPlaceholderStart:
+    BLOCK_OPEN INS_WS? placeholderName=ID INS_WS? attribute* INS_WS? CLOSE
+    ;
+blockPlaceholderEnd:
+    BLOCK_END INS_WS? placeholderName=ID INS_WS? CLOSE
+    ;
+blockPlaceholderContent:
+    INS_WS? content INS_WS?
+    ;
 
 placeholder
-  :  OPEN placeholderName=ID { pushTag($placeholderName.GetText()) } CLOSE
-     (content OPEN_END placeholderEndName=ID {
-      name := $placeholderEndName.GetText()
-      tag := peekTag()
-      if tag == name {
-        popTag()
-        // keep as END_TAG
-      } else {
-        goto errorExit
-      }
-
-     } CLOSE)?
-
+  :  simplePlaceholder | blockPlaceholder
   ;

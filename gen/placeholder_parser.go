@@ -1,4 +1,4 @@
-// Code generated from /Users/alex/GolandProjects/antlr/gramair/PlaceholderParser.g4 by ANTLR 4.13.2. DO NOT EDIT.
+// Code generated from /home/alex/GolandProjects/go-placeholders/gramair/PlaceholderParser.g4 by ANTLR 4.13.2. DO NOT EDIT.
 
 package parser // PlaceholderParser
 
@@ -33,29 +33,56 @@ var PlaceholderParserParserStaticData struct {
 func placeholderparserParserInit() {
 	staticData := &PlaceholderParserParserStaticData
 	staticData.LiteralNames = []string{
-		"", "'{{end_'", "'{{'", "", "", "'}}'",
+		"", "'{{block_'", "'{{end_'", "'{{'", "", "", "", "'='", "'}}'", "",
+		"'{'",
 	}
 	staticData.SymbolicNames = []string{
-		"", "OPEN_END", "OPEN", "TEXT", "ID", "CLOSE", "STRING",
+		"", "BLOCK_OPEN", "BLOCK_END", "OPEN", "TEXT", "ID", "INS_WS", "EQ",
+		"CLOSE", "STRING", "LBRACE_AS_TEXT",
 	}
 	staticData.RuleNames = []string{
-		"template", "content", "text", "placeholder",
+		"template", "content", "text", "attribute", "simplePlaceholder", "blockPlaceholder",
+		"blockPlaceholderStart", "blockPlaceholderEnd", "blockPlaceholderContent",
+		"placeholder",
 	}
 	staticData.PredictionContextCache = antlr.NewPredictionContextCache()
 	staticData.serializedATN = []int32{
-		4, 1, 6, 33, 2, 0, 7, 0, 2, 1, 7, 1, 2, 2, 7, 2, 2, 3, 7, 3, 1, 0, 1, 0,
-		1, 0, 1, 1, 1, 1, 5, 1, 14, 8, 1, 10, 1, 12, 1, 17, 9, 1, 1, 2, 1, 2, 1,
-		3, 1, 3, 1, 3, 1, 3, 1, 3, 1, 3, 1, 3, 1, 3, 1, 3, 1, 3, 3, 3, 31, 8, 3,
-		1, 3, 0, 0, 4, 0, 2, 4, 6, 0, 0, 31, 0, 8, 1, 0, 0, 0, 2, 15, 1, 0, 0,
-		0, 4, 18, 1, 0, 0, 0, 6, 20, 1, 0, 0, 0, 8, 9, 3, 2, 1, 0, 9, 10, 5, 0,
-		0, 1, 10, 1, 1, 0, 0, 0, 11, 14, 3, 4, 2, 0, 12, 14, 3, 6, 3, 0, 13, 11,
-		1, 0, 0, 0, 13, 12, 1, 0, 0, 0, 14, 17, 1, 0, 0, 0, 15, 13, 1, 0, 0, 0,
-		15, 16, 1, 0, 0, 0, 16, 3, 1, 0, 0, 0, 17, 15, 1, 0, 0, 0, 18, 19, 5, 3,
-		0, 0, 19, 5, 1, 0, 0, 0, 20, 21, 5, 2, 0, 0, 21, 22, 5, 4, 0, 0, 22, 23,
-		6, 3, -1, 0, 23, 30, 5, 5, 0, 0, 24, 25, 3, 2, 1, 0, 25, 26, 5, 1, 0, 0,
-		26, 27, 5, 4, 0, 0, 27, 28, 6, 3, -1, 0, 28, 29, 5, 5, 0, 0, 29, 31, 1,
-		0, 0, 0, 30, 24, 1, 0, 0, 0, 30, 31, 1, 0, 0, 0, 31, 7, 1, 0, 0, 0, 3,
-		13, 15, 30,
+		4, 1, 10, 91, 2, 0, 7, 0, 2, 1, 7, 1, 2, 2, 7, 2, 2, 3, 7, 3, 2, 4, 7,
+		4, 2, 5, 7, 5, 2, 6, 7, 6, 2, 7, 7, 7, 2, 8, 7, 8, 2, 9, 7, 9, 1, 0, 1,
+		0, 1, 0, 1, 1, 1, 1, 5, 1, 26, 8, 1, 10, 1, 12, 1, 29, 9, 1, 1, 2, 1, 2,
+		1, 3, 1, 3, 1, 3, 1, 3, 1, 4, 1, 4, 1, 4, 5, 4, 40, 8, 4, 10, 4, 12, 4,
+		43, 9, 4, 1, 4, 1, 4, 1, 5, 1, 5, 1, 5, 1, 5, 1, 6, 1, 6, 3, 6, 53, 8,
+		6, 1, 6, 1, 6, 3, 6, 57, 8, 6, 1, 6, 5, 6, 60, 8, 6, 10, 6, 12, 6, 63,
+		9, 6, 1, 6, 3, 6, 66, 8, 6, 1, 6, 1, 6, 1, 7, 1, 7, 3, 7, 72, 8, 7, 1,
+		7, 1, 7, 3, 7, 76, 8, 7, 1, 7, 1, 7, 1, 8, 3, 8, 81, 8, 8, 1, 8, 1, 8,
+		3, 8, 85, 8, 8, 1, 9, 1, 9, 3, 9, 89, 8, 9, 1, 9, 0, 0, 10, 0, 2, 4, 6,
+		8, 10, 12, 14, 16, 18, 0, 0, 92, 0, 20, 1, 0, 0, 0, 2, 27, 1, 0, 0, 0,
+		4, 30, 1, 0, 0, 0, 6, 32, 1, 0, 0, 0, 8, 36, 1, 0, 0, 0, 10, 46, 1, 0,
+		0, 0, 12, 50, 1, 0, 0, 0, 14, 69, 1, 0, 0, 0, 16, 80, 1, 0, 0, 0, 18, 88,
+		1, 0, 0, 0, 20, 21, 3, 2, 1, 0, 21, 22, 5, 0, 0, 1, 22, 1, 1, 0, 0, 0,
+		23, 26, 3, 4, 2, 0, 24, 26, 3, 18, 9, 0, 25, 23, 1, 0, 0, 0, 25, 24, 1,
+		0, 0, 0, 26, 29, 1, 0, 0, 0, 27, 25, 1, 0, 0, 0, 27, 28, 1, 0, 0, 0, 28,
+		3, 1, 0, 0, 0, 29, 27, 1, 0, 0, 0, 30, 31, 5, 4, 0, 0, 31, 5, 1, 0, 0,
+		0, 32, 33, 5, 5, 0, 0, 33, 34, 5, 7, 0, 0, 34, 35, 5, 9, 0, 0, 35, 7, 1,
+		0, 0, 0, 36, 37, 5, 3, 0, 0, 37, 41, 5, 5, 0, 0, 38, 40, 3, 6, 3, 0, 39,
+		38, 1, 0, 0, 0, 40, 43, 1, 0, 0, 0, 41, 39, 1, 0, 0, 0, 41, 42, 1, 0, 0,
+		0, 42, 44, 1, 0, 0, 0, 43, 41, 1, 0, 0, 0, 44, 45, 5, 8, 0, 0, 45, 9, 1,
+		0, 0, 0, 46, 47, 3, 12, 6, 0, 47, 48, 3, 16, 8, 0, 48, 49, 3, 14, 7, 0,
+		49, 11, 1, 0, 0, 0, 50, 52, 5, 1, 0, 0, 51, 53, 5, 6, 0, 0, 52, 51, 1,
+		0, 0, 0, 52, 53, 1, 0, 0, 0, 53, 54, 1, 0, 0, 0, 54, 56, 5, 5, 0, 0, 55,
+		57, 5, 6, 0, 0, 56, 55, 1, 0, 0, 0, 56, 57, 1, 0, 0, 0, 57, 61, 1, 0, 0,
+		0, 58, 60, 3, 6, 3, 0, 59, 58, 1, 0, 0, 0, 60, 63, 1, 0, 0, 0, 61, 59,
+		1, 0, 0, 0, 61, 62, 1, 0, 0, 0, 62, 65, 1, 0, 0, 0, 63, 61, 1, 0, 0, 0,
+		64, 66, 5, 6, 0, 0, 65, 64, 1, 0, 0, 0, 65, 66, 1, 0, 0, 0, 66, 67, 1,
+		0, 0, 0, 67, 68, 5, 8, 0, 0, 68, 13, 1, 0, 0, 0, 69, 71, 5, 2, 0, 0, 70,
+		72, 5, 6, 0, 0, 71, 70, 1, 0, 0, 0, 71, 72, 1, 0, 0, 0, 72, 73, 1, 0, 0,
+		0, 73, 75, 5, 5, 0, 0, 74, 76, 5, 6, 0, 0, 75, 74, 1, 0, 0, 0, 75, 76,
+		1, 0, 0, 0, 76, 77, 1, 0, 0, 0, 77, 78, 5, 8, 0, 0, 78, 15, 1, 0, 0, 0,
+		79, 81, 5, 6, 0, 0, 80, 79, 1, 0, 0, 0, 80, 81, 1, 0, 0, 0, 81, 82, 1,
+		0, 0, 0, 82, 84, 3, 2, 1, 0, 83, 85, 5, 6, 0, 0, 84, 83, 1, 0, 0, 0, 84,
+		85, 1, 0, 0, 0, 85, 17, 1, 0, 0, 0, 86, 89, 3, 8, 4, 0, 87, 89, 3, 10,
+		5, 0, 88, 86, 1, 0, 0, 0, 88, 87, 1, 0, 0, 0, 89, 19, 1, 0, 0, 0, 12, 25,
+		27, 41, 52, 56, 61, 65, 71, 75, 80, 84, 88,
 	}
 	deserializer := antlr.NewATNDeserializer(nil)
 	staticData.atn = deserializer.Deserialize(staticData.serializedATN)
@@ -93,21 +120,31 @@ func NewPlaceholderParser(input antlr.TokenStream) *PlaceholderParser {
 
 // PlaceholderParser tokens.
 const (
-	PlaceholderParserEOF      = antlr.TokenEOF
-	PlaceholderParserOPEN_END = 1
-	PlaceholderParserOPEN     = 2
-	PlaceholderParserTEXT     = 3
-	PlaceholderParserID       = 4
-	PlaceholderParserCLOSE    = 5
-	PlaceholderParserSTRING   = 6
+	PlaceholderParserEOF            = antlr.TokenEOF
+	PlaceholderParserBLOCK_OPEN     = 1
+	PlaceholderParserBLOCK_END      = 2
+	PlaceholderParserOPEN           = 3
+	PlaceholderParserTEXT           = 4
+	PlaceholderParserID             = 5
+	PlaceholderParserINS_WS         = 6
+	PlaceholderParserEQ             = 7
+	PlaceholderParserCLOSE          = 8
+	PlaceholderParserSTRING         = 9
+	PlaceholderParserLBRACE_AS_TEXT = 10
 )
 
 // PlaceholderParser rules.
 const (
-	PlaceholderParserRULE_template    = 0
-	PlaceholderParserRULE_content     = 1
-	PlaceholderParserRULE_text        = 2
-	PlaceholderParserRULE_placeholder = 3
+	PlaceholderParserRULE_template                = 0
+	PlaceholderParserRULE_content                 = 1
+	PlaceholderParserRULE_text                    = 2
+	PlaceholderParserRULE_attribute               = 3
+	PlaceholderParserRULE_simplePlaceholder       = 4
+	PlaceholderParserRULE_blockPlaceholder        = 5
+	PlaceholderParserRULE_blockPlaceholderStart   = 6
+	PlaceholderParserRULE_blockPlaceholderEnd     = 7
+	PlaceholderParserRULE_blockPlaceholderContent = 8
+	PlaceholderParserRULE_placeholder             = 9
 )
 
 // ITemplateContext is an interface to support dynamic dispatch.
@@ -185,6 +222,18 @@ func (s *TemplateContext) ToStringTree(ruleNames []string, recog antlr.Recognize
 	return antlr.TreesStringTree(s, ruleNames, recog)
 }
 
+func (s *TemplateContext) EnterRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(PlaceholderParserListener); ok {
+		listenerT.EnterTemplate(s)
+	}
+}
+
+func (s *TemplateContext) ExitRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(PlaceholderParserListener); ok {
+		listenerT.ExitTemplate(s)
+	}
+}
+
 func (s *TemplateContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
 	switch t := visitor.(type) {
 	case PlaceholderParserVisitor:
@@ -200,11 +249,11 @@ func (p *PlaceholderParser) Template() (localctx ITemplateContext) {
 	p.EnterRule(localctx, 0, PlaceholderParserRULE_template)
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(8)
+		p.SetState(20)
 		p.Content()
 	}
 	{
-		p.SetState(9)
+		p.SetState(21)
 		p.Match(PlaceholderParserEOF)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -364,6 +413,18 @@ func (s *ContentContext) ToStringTree(ruleNames []string, recog antlr.Recognizer
 	return antlr.TreesStringTree(s, ruleNames, recog)
 }
 
+func (s *ContentContext) EnterRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(PlaceholderParserListener); ok {
+		listenerT.EnterContent(s)
+	}
+}
+
+func (s *ContentContext) ExitRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(PlaceholderParserListener); ok {
+		listenerT.ExitContent(s)
+	}
+}
+
 func (s *ContentContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
 	switch t := visitor.(type) {
 	case PlaceholderParserVisitor:
@@ -380,15 +441,15 @@ func (p *PlaceholderParser) Content() (localctx IContentContext) {
 	var _la int
 
 	p.EnterOuterAlt(localctx, 1)
-	p.SetState(15)
+	p.SetState(27)
 	p.GetErrorHandler().Sync(p)
 	if p.HasError() {
 		goto errorExit
 	}
 	_la = p.GetTokenStream().LA(1)
 
-	for _la == PlaceholderParserOPEN || _la == PlaceholderParserTEXT {
-		p.SetState(13)
+	for (int64(_la) & ^0x3f) == 0 && ((int64(1)<<_la)&26) != 0 {
+		p.SetState(25)
 		p.GetErrorHandler().Sync(p)
 		if p.HasError() {
 			goto errorExit
@@ -397,13 +458,13 @@ func (p *PlaceholderParser) Content() (localctx IContentContext) {
 		switch p.GetTokenStream().LA(1) {
 		case PlaceholderParserTEXT:
 			{
-				p.SetState(11)
+				p.SetState(23)
 				p.Text()
 			}
 
-		case PlaceholderParserOPEN:
+		case PlaceholderParserBLOCK_OPEN, PlaceholderParserOPEN:
 			{
-				p.SetState(12)
+				p.SetState(24)
 				p.Placeholder()
 			}
 
@@ -412,7 +473,7 @@ func (p *PlaceholderParser) Content() (localctx IContentContext) {
 			goto errorExit
 		}
 
-		p.SetState(17)
+		p.SetState(29)
 		p.GetErrorHandler().Sync(p)
 		if p.HasError() {
 			goto errorExit
@@ -491,6 +552,18 @@ func (s *TextContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) s
 	return antlr.TreesStringTree(s, ruleNames, recog)
 }
 
+func (s *TextContext) EnterRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(PlaceholderParserListener); ok {
+		listenerT.EnterText(s)
+	}
+}
+
+func (s *TextContext) ExitRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(PlaceholderParserListener); ok {
+		listenerT.ExitText(s)
+	}
+}
+
 func (s *TextContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
 	switch t := visitor.(type) {
 	case PlaceholderParserVisitor:
@@ -506,12 +579,1166 @@ func (p *PlaceholderParser) Text() (localctx ITextContext) {
 	p.EnterRule(localctx, 4, PlaceholderParserRULE_text)
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(18)
+		p.SetState(30)
 		p.Match(PlaceholderParserTEXT)
 		if p.HasError() {
 			// Recognition error - abort rule
 			goto errorExit
 		}
+	}
+
+errorExit:
+	if p.HasError() {
+		v := p.GetError()
+		localctx.SetException(v)
+		p.GetErrorHandler().ReportError(p, v)
+		p.GetErrorHandler().Recover(p, v)
+		p.SetError(nil)
+	}
+	p.ExitRule()
+	return localctx
+	goto errorExit // Trick to prevent compiler error if the label is not used
+}
+
+// IAttributeContext is an interface to support dynamic dispatch.
+type IAttributeContext interface {
+	antlr.ParserRuleContext
+
+	// GetParser returns the parser.
+	GetParser() antlr.Parser
+
+	// GetName returns the name token.
+	GetName() antlr.Token
+
+	// GetValue returns the value token.
+	GetValue() antlr.Token
+
+	// SetName sets the name token.
+	SetName(antlr.Token)
+
+	// SetValue sets the value token.
+	SetValue(antlr.Token)
+
+	// Getter signatures
+	EQ() antlr.TerminalNode
+	ID() antlr.TerminalNode
+	STRING() antlr.TerminalNode
+
+	// IsAttributeContext differentiates from other interfaces.
+	IsAttributeContext()
+}
+
+type AttributeContext struct {
+	antlr.BaseParserRuleContext
+	parser antlr.Parser
+	name   antlr.Token
+	value  antlr.Token
+}
+
+func NewEmptyAttributeContext() *AttributeContext {
+	var p = new(AttributeContext)
+	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, nil, -1)
+	p.RuleIndex = PlaceholderParserRULE_attribute
+	return p
+}
+
+func InitEmptyAttributeContext(p *AttributeContext) {
+	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, nil, -1)
+	p.RuleIndex = PlaceholderParserRULE_attribute
+}
+
+func (*AttributeContext) IsAttributeContext() {}
+
+func NewAttributeContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *AttributeContext {
+	var p = new(AttributeContext)
+
+	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, parent, invokingState)
+
+	p.parser = parser
+	p.RuleIndex = PlaceholderParserRULE_attribute
+
+	return p
+}
+
+func (s *AttributeContext) GetParser() antlr.Parser { return s.parser }
+
+func (s *AttributeContext) GetName() antlr.Token { return s.name }
+
+func (s *AttributeContext) GetValue() antlr.Token { return s.value }
+
+func (s *AttributeContext) SetName(v antlr.Token) { s.name = v }
+
+func (s *AttributeContext) SetValue(v antlr.Token) { s.value = v }
+
+func (s *AttributeContext) EQ() antlr.TerminalNode {
+	return s.GetToken(PlaceholderParserEQ, 0)
+}
+
+func (s *AttributeContext) ID() antlr.TerminalNode {
+	return s.GetToken(PlaceholderParserID, 0)
+}
+
+func (s *AttributeContext) STRING() antlr.TerminalNode {
+	return s.GetToken(PlaceholderParserSTRING, 0)
+}
+
+func (s *AttributeContext) GetRuleContext() antlr.RuleContext {
+	return s
+}
+
+func (s *AttributeContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
+	return antlr.TreesStringTree(s, ruleNames, recog)
+}
+
+func (s *AttributeContext) EnterRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(PlaceholderParserListener); ok {
+		listenerT.EnterAttribute(s)
+	}
+}
+
+func (s *AttributeContext) ExitRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(PlaceholderParserListener); ok {
+		listenerT.ExitAttribute(s)
+	}
+}
+
+func (s *AttributeContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case PlaceholderParserVisitor:
+		return t.VisitAttribute(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
+func (p *PlaceholderParser) Attribute() (localctx IAttributeContext) {
+	localctx = NewAttributeContext(p, p.GetParserRuleContext(), p.GetState())
+	p.EnterRule(localctx, 6, PlaceholderParserRULE_attribute)
+	p.EnterOuterAlt(localctx, 1)
+	{
+		p.SetState(32)
+
+		var _m = p.Match(PlaceholderParserID)
+
+		localctx.(*AttributeContext).name = _m
+		if p.HasError() {
+			// Recognition error - abort rule
+			goto errorExit
+		}
+	}
+	{
+		p.SetState(33)
+		p.Match(PlaceholderParserEQ)
+		if p.HasError() {
+			// Recognition error - abort rule
+			goto errorExit
+		}
+	}
+	{
+		p.SetState(34)
+
+		var _m = p.Match(PlaceholderParserSTRING)
+
+		localctx.(*AttributeContext).value = _m
+		if p.HasError() {
+			// Recognition error - abort rule
+			goto errorExit
+		}
+	}
+
+errorExit:
+	if p.HasError() {
+		v := p.GetError()
+		localctx.SetException(v)
+		p.GetErrorHandler().ReportError(p, v)
+		p.GetErrorHandler().Recover(p, v)
+		p.SetError(nil)
+	}
+	p.ExitRule()
+	return localctx
+	goto errorExit // Trick to prevent compiler error if the label is not used
+}
+
+// ISimplePlaceholderContext is an interface to support dynamic dispatch.
+type ISimplePlaceholderContext interface {
+	antlr.ParserRuleContext
+
+	// GetParser returns the parser.
+	GetParser() antlr.Parser
+
+	// GetPlaceholderName returns the placeholderName token.
+	GetPlaceholderName() antlr.Token
+
+	// SetPlaceholderName sets the placeholderName token.
+	SetPlaceholderName(antlr.Token)
+
+	// Getter signatures
+	OPEN() antlr.TerminalNode
+	CLOSE() antlr.TerminalNode
+	ID() antlr.TerminalNode
+	AllAttribute() []IAttributeContext
+	Attribute(i int) IAttributeContext
+
+	// IsSimplePlaceholderContext differentiates from other interfaces.
+	IsSimplePlaceholderContext()
+}
+
+type SimplePlaceholderContext struct {
+	antlr.BaseParserRuleContext
+	parser          antlr.Parser
+	placeholderName antlr.Token
+}
+
+func NewEmptySimplePlaceholderContext() *SimplePlaceholderContext {
+	var p = new(SimplePlaceholderContext)
+	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, nil, -1)
+	p.RuleIndex = PlaceholderParserRULE_simplePlaceholder
+	return p
+}
+
+func InitEmptySimplePlaceholderContext(p *SimplePlaceholderContext) {
+	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, nil, -1)
+	p.RuleIndex = PlaceholderParserRULE_simplePlaceholder
+}
+
+func (*SimplePlaceholderContext) IsSimplePlaceholderContext() {}
+
+func NewSimplePlaceholderContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *SimplePlaceholderContext {
+	var p = new(SimplePlaceholderContext)
+
+	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, parent, invokingState)
+
+	p.parser = parser
+	p.RuleIndex = PlaceholderParserRULE_simplePlaceholder
+
+	return p
+}
+
+func (s *SimplePlaceholderContext) GetParser() antlr.Parser { return s.parser }
+
+func (s *SimplePlaceholderContext) GetPlaceholderName() antlr.Token { return s.placeholderName }
+
+func (s *SimplePlaceholderContext) SetPlaceholderName(v antlr.Token) { s.placeholderName = v }
+
+func (s *SimplePlaceholderContext) OPEN() antlr.TerminalNode {
+	return s.GetToken(PlaceholderParserOPEN, 0)
+}
+
+func (s *SimplePlaceholderContext) CLOSE() antlr.TerminalNode {
+	return s.GetToken(PlaceholderParserCLOSE, 0)
+}
+
+func (s *SimplePlaceholderContext) ID() antlr.TerminalNode {
+	return s.GetToken(PlaceholderParserID, 0)
+}
+
+func (s *SimplePlaceholderContext) AllAttribute() []IAttributeContext {
+	children := s.GetChildren()
+	len := 0
+	for _, ctx := range children {
+		if _, ok := ctx.(IAttributeContext); ok {
+			len++
+		}
+	}
+
+	tst := make([]IAttributeContext, len)
+	i := 0
+	for _, ctx := range children {
+		if t, ok := ctx.(IAttributeContext); ok {
+			tst[i] = t.(IAttributeContext)
+			i++
+		}
+	}
+
+	return tst
+}
+
+func (s *SimplePlaceholderContext) Attribute(i int) IAttributeContext {
+	var t antlr.RuleContext
+	j := 0
+	for _, ctx := range s.GetChildren() {
+		if _, ok := ctx.(IAttributeContext); ok {
+			if j == i {
+				t = ctx.(antlr.RuleContext)
+				break
+			}
+			j++
+		}
+	}
+
+	if t == nil {
+		return nil
+	}
+
+	return t.(IAttributeContext)
+}
+
+func (s *SimplePlaceholderContext) GetRuleContext() antlr.RuleContext {
+	return s
+}
+
+func (s *SimplePlaceholderContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
+	return antlr.TreesStringTree(s, ruleNames, recog)
+}
+
+func (s *SimplePlaceholderContext) EnterRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(PlaceholderParserListener); ok {
+		listenerT.EnterSimplePlaceholder(s)
+	}
+}
+
+func (s *SimplePlaceholderContext) ExitRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(PlaceholderParserListener); ok {
+		listenerT.ExitSimplePlaceholder(s)
+	}
+}
+
+func (s *SimplePlaceholderContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case PlaceholderParserVisitor:
+		return t.VisitSimplePlaceholder(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
+func (p *PlaceholderParser) SimplePlaceholder() (localctx ISimplePlaceholderContext) {
+	localctx = NewSimplePlaceholderContext(p, p.GetParserRuleContext(), p.GetState())
+	p.EnterRule(localctx, 8, PlaceholderParserRULE_simplePlaceholder)
+	var _la int
+
+	p.EnterOuterAlt(localctx, 1)
+	{
+		p.SetState(36)
+		p.Match(PlaceholderParserOPEN)
+		if p.HasError() {
+			// Recognition error - abort rule
+			goto errorExit
+		}
+	}
+	{
+		p.SetState(37)
+
+		var _m = p.Match(PlaceholderParserID)
+
+		localctx.(*SimplePlaceholderContext).placeholderName = _m
+		if p.HasError() {
+			// Recognition error - abort rule
+			goto errorExit
+		}
+	}
+	p.SetState(41)
+	p.GetErrorHandler().Sync(p)
+	if p.HasError() {
+		goto errorExit
+	}
+	_la = p.GetTokenStream().LA(1)
+
+	for _la == PlaceholderParserID {
+		{
+			p.SetState(38)
+			p.Attribute()
+		}
+
+		p.SetState(43)
+		p.GetErrorHandler().Sync(p)
+		if p.HasError() {
+			goto errorExit
+		}
+		_la = p.GetTokenStream().LA(1)
+	}
+	{
+		p.SetState(44)
+		p.Match(PlaceholderParserCLOSE)
+		if p.HasError() {
+			// Recognition error - abort rule
+			goto errorExit
+		}
+	}
+
+errorExit:
+	if p.HasError() {
+		v := p.GetError()
+		localctx.SetException(v)
+		p.GetErrorHandler().ReportError(p, v)
+		p.GetErrorHandler().Recover(p, v)
+		p.SetError(nil)
+	}
+	p.ExitRule()
+	return localctx
+	goto errorExit // Trick to prevent compiler error if the label is not used
+}
+
+// IBlockPlaceholderContext is an interface to support dynamic dispatch.
+type IBlockPlaceholderContext interface {
+	antlr.ParserRuleContext
+
+	// GetParser returns the parser.
+	GetParser() antlr.Parser
+
+	// Getter signatures
+	BlockPlaceholderStart() IBlockPlaceholderStartContext
+	BlockPlaceholderContent() IBlockPlaceholderContentContext
+	BlockPlaceholderEnd() IBlockPlaceholderEndContext
+
+	// IsBlockPlaceholderContext differentiates from other interfaces.
+	IsBlockPlaceholderContext()
+}
+
+type BlockPlaceholderContext struct {
+	antlr.BaseParserRuleContext
+	parser antlr.Parser
+}
+
+func NewEmptyBlockPlaceholderContext() *BlockPlaceholderContext {
+	var p = new(BlockPlaceholderContext)
+	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, nil, -1)
+	p.RuleIndex = PlaceholderParserRULE_blockPlaceholder
+	return p
+}
+
+func InitEmptyBlockPlaceholderContext(p *BlockPlaceholderContext) {
+	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, nil, -1)
+	p.RuleIndex = PlaceholderParserRULE_blockPlaceholder
+}
+
+func (*BlockPlaceholderContext) IsBlockPlaceholderContext() {}
+
+func NewBlockPlaceholderContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *BlockPlaceholderContext {
+	var p = new(BlockPlaceholderContext)
+
+	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, parent, invokingState)
+
+	p.parser = parser
+	p.RuleIndex = PlaceholderParserRULE_blockPlaceholder
+
+	return p
+}
+
+func (s *BlockPlaceholderContext) GetParser() antlr.Parser { return s.parser }
+
+func (s *BlockPlaceholderContext) BlockPlaceholderStart() IBlockPlaceholderStartContext {
+	var t antlr.RuleContext
+	for _, ctx := range s.GetChildren() {
+		if _, ok := ctx.(IBlockPlaceholderStartContext); ok {
+			t = ctx.(antlr.RuleContext)
+			break
+		}
+	}
+
+	if t == nil {
+		return nil
+	}
+
+	return t.(IBlockPlaceholderStartContext)
+}
+
+func (s *BlockPlaceholderContext) BlockPlaceholderContent() IBlockPlaceholderContentContext {
+	var t antlr.RuleContext
+	for _, ctx := range s.GetChildren() {
+		if _, ok := ctx.(IBlockPlaceholderContentContext); ok {
+			t = ctx.(antlr.RuleContext)
+			break
+		}
+	}
+
+	if t == nil {
+		return nil
+	}
+
+	return t.(IBlockPlaceholderContentContext)
+}
+
+func (s *BlockPlaceholderContext) BlockPlaceholderEnd() IBlockPlaceholderEndContext {
+	var t antlr.RuleContext
+	for _, ctx := range s.GetChildren() {
+		if _, ok := ctx.(IBlockPlaceholderEndContext); ok {
+			t = ctx.(antlr.RuleContext)
+			break
+		}
+	}
+
+	if t == nil {
+		return nil
+	}
+
+	return t.(IBlockPlaceholderEndContext)
+}
+
+func (s *BlockPlaceholderContext) GetRuleContext() antlr.RuleContext {
+	return s
+}
+
+func (s *BlockPlaceholderContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
+	return antlr.TreesStringTree(s, ruleNames, recog)
+}
+
+func (s *BlockPlaceholderContext) EnterRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(PlaceholderParserListener); ok {
+		listenerT.EnterBlockPlaceholder(s)
+	}
+}
+
+func (s *BlockPlaceholderContext) ExitRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(PlaceholderParserListener); ok {
+		listenerT.ExitBlockPlaceholder(s)
+	}
+}
+
+func (s *BlockPlaceholderContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case PlaceholderParserVisitor:
+		return t.VisitBlockPlaceholder(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
+func (p *PlaceholderParser) BlockPlaceholder() (localctx IBlockPlaceholderContext) {
+	localctx = NewBlockPlaceholderContext(p, p.GetParserRuleContext(), p.GetState())
+	p.EnterRule(localctx, 10, PlaceholderParserRULE_blockPlaceholder)
+	p.EnterOuterAlt(localctx, 1)
+	{
+		p.SetState(46)
+		p.BlockPlaceholderStart()
+	}
+	{
+		p.SetState(47)
+		p.BlockPlaceholderContent()
+	}
+	{
+		p.SetState(48)
+		p.BlockPlaceholderEnd()
+	}
+
+errorExit:
+	if p.HasError() {
+		v := p.GetError()
+		localctx.SetException(v)
+		p.GetErrorHandler().ReportError(p, v)
+		p.GetErrorHandler().Recover(p, v)
+		p.SetError(nil)
+	}
+	p.ExitRule()
+	return localctx
+	goto errorExit // Trick to prevent compiler error if the label is not used
+}
+
+// IBlockPlaceholderStartContext is an interface to support dynamic dispatch.
+type IBlockPlaceholderStartContext interface {
+	antlr.ParserRuleContext
+
+	// GetParser returns the parser.
+	GetParser() antlr.Parser
+
+	// GetPlaceholderName returns the placeholderName token.
+	GetPlaceholderName() antlr.Token
+
+	// SetPlaceholderName sets the placeholderName token.
+	SetPlaceholderName(antlr.Token)
+
+	// Getter signatures
+	BLOCK_OPEN() antlr.TerminalNode
+	CLOSE() antlr.TerminalNode
+	ID() antlr.TerminalNode
+	AllINS_WS() []antlr.TerminalNode
+	INS_WS(i int) antlr.TerminalNode
+	AllAttribute() []IAttributeContext
+	Attribute(i int) IAttributeContext
+
+	// IsBlockPlaceholderStartContext differentiates from other interfaces.
+	IsBlockPlaceholderStartContext()
+}
+
+type BlockPlaceholderStartContext struct {
+	antlr.BaseParserRuleContext
+	parser          antlr.Parser
+	placeholderName antlr.Token
+}
+
+func NewEmptyBlockPlaceholderStartContext() *BlockPlaceholderStartContext {
+	var p = new(BlockPlaceholderStartContext)
+	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, nil, -1)
+	p.RuleIndex = PlaceholderParserRULE_blockPlaceholderStart
+	return p
+}
+
+func InitEmptyBlockPlaceholderStartContext(p *BlockPlaceholderStartContext) {
+	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, nil, -1)
+	p.RuleIndex = PlaceholderParserRULE_blockPlaceholderStart
+}
+
+func (*BlockPlaceholderStartContext) IsBlockPlaceholderStartContext() {}
+
+func NewBlockPlaceholderStartContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *BlockPlaceholderStartContext {
+	var p = new(BlockPlaceholderStartContext)
+
+	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, parent, invokingState)
+
+	p.parser = parser
+	p.RuleIndex = PlaceholderParserRULE_blockPlaceholderStart
+
+	return p
+}
+
+func (s *BlockPlaceholderStartContext) GetParser() antlr.Parser { return s.parser }
+
+func (s *BlockPlaceholderStartContext) GetPlaceholderName() antlr.Token { return s.placeholderName }
+
+func (s *BlockPlaceholderStartContext) SetPlaceholderName(v antlr.Token) { s.placeholderName = v }
+
+func (s *BlockPlaceholderStartContext) BLOCK_OPEN() antlr.TerminalNode {
+	return s.GetToken(PlaceholderParserBLOCK_OPEN, 0)
+}
+
+func (s *BlockPlaceholderStartContext) CLOSE() antlr.TerminalNode {
+	return s.GetToken(PlaceholderParserCLOSE, 0)
+}
+
+func (s *BlockPlaceholderStartContext) ID() antlr.TerminalNode {
+	return s.GetToken(PlaceholderParserID, 0)
+}
+
+func (s *BlockPlaceholderStartContext) AllINS_WS() []antlr.TerminalNode {
+	return s.GetTokens(PlaceholderParserINS_WS)
+}
+
+func (s *BlockPlaceholderStartContext) INS_WS(i int) antlr.TerminalNode {
+	return s.GetToken(PlaceholderParserINS_WS, i)
+}
+
+func (s *BlockPlaceholderStartContext) AllAttribute() []IAttributeContext {
+	children := s.GetChildren()
+	len := 0
+	for _, ctx := range children {
+		if _, ok := ctx.(IAttributeContext); ok {
+			len++
+		}
+	}
+
+	tst := make([]IAttributeContext, len)
+	i := 0
+	for _, ctx := range children {
+		if t, ok := ctx.(IAttributeContext); ok {
+			tst[i] = t.(IAttributeContext)
+			i++
+		}
+	}
+
+	return tst
+}
+
+func (s *BlockPlaceholderStartContext) Attribute(i int) IAttributeContext {
+	var t antlr.RuleContext
+	j := 0
+	for _, ctx := range s.GetChildren() {
+		if _, ok := ctx.(IAttributeContext); ok {
+			if j == i {
+				t = ctx.(antlr.RuleContext)
+				break
+			}
+			j++
+		}
+	}
+
+	if t == nil {
+		return nil
+	}
+
+	return t.(IAttributeContext)
+}
+
+func (s *BlockPlaceholderStartContext) GetRuleContext() antlr.RuleContext {
+	return s
+}
+
+func (s *BlockPlaceholderStartContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
+	return antlr.TreesStringTree(s, ruleNames, recog)
+}
+
+func (s *BlockPlaceholderStartContext) EnterRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(PlaceholderParserListener); ok {
+		listenerT.EnterBlockPlaceholderStart(s)
+	}
+}
+
+func (s *BlockPlaceholderStartContext) ExitRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(PlaceholderParserListener); ok {
+		listenerT.ExitBlockPlaceholderStart(s)
+	}
+}
+
+func (s *BlockPlaceholderStartContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case PlaceholderParserVisitor:
+		return t.VisitBlockPlaceholderStart(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
+func (p *PlaceholderParser) BlockPlaceholderStart() (localctx IBlockPlaceholderStartContext) {
+	localctx = NewBlockPlaceholderStartContext(p, p.GetParserRuleContext(), p.GetState())
+	p.EnterRule(localctx, 12, PlaceholderParserRULE_blockPlaceholderStart)
+	var _la int
+
+	p.EnterOuterAlt(localctx, 1)
+	{
+		p.SetState(50)
+		p.Match(PlaceholderParserBLOCK_OPEN)
+		if p.HasError() {
+			// Recognition error - abort rule
+			goto errorExit
+		}
+	}
+	p.SetState(52)
+	p.GetErrorHandler().Sync(p)
+	if p.HasError() {
+		goto errorExit
+	}
+	_la = p.GetTokenStream().LA(1)
+
+	if _la == PlaceholderParserINS_WS {
+		{
+			p.SetState(51)
+			p.Match(PlaceholderParserINS_WS)
+			if p.HasError() {
+				// Recognition error - abort rule
+				goto errorExit
+			}
+		}
+
+	}
+	{
+		p.SetState(54)
+
+		var _m = p.Match(PlaceholderParserID)
+
+		localctx.(*BlockPlaceholderStartContext).placeholderName = _m
+		if p.HasError() {
+			// Recognition error - abort rule
+			goto errorExit
+		}
+	}
+	p.SetState(56)
+	p.GetErrorHandler().Sync(p)
+
+	if p.GetInterpreter().AdaptivePredict(p.BaseParser, p.GetTokenStream(), 4, p.GetParserRuleContext()) == 1 {
+		{
+			p.SetState(55)
+			p.Match(PlaceholderParserINS_WS)
+			if p.HasError() {
+				// Recognition error - abort rule
+				goto errorExit
+			}
+		}
+
+	} else if p.HasError() { // JIM
+		goto errorExit
+	}
+	p.SetState(61)
+	p.GetErrorHandler().Sync(p)
+	if p.HasError() {
+		goto errorExit
+	}
+	_la = p.GetTokenStream().LA(1)
+
+	for _la == PlaceholderParserID {
+		{
+			p.SetState(58)
+			p.Attribute()
+		}
+
+		p.SetState(63)
+		p.GetErrorHandler().Sync(p)
+		if p.HasError() {
+			goto errorExit
+		}
+		_la = p.GetTokenStream().LA(1)
+	}
+	p.SetState(65)
+	p.GetErrorHandler().Sync(p)
+	if p.HasError() {
+		goto errorExit
+	}
+	_la = p.GetTokenStream().LA(1)
+
+	if _la == PlaceholderParserINS_WS {
+		{
+			p.SetState(64)
+			p.Match(PlaceholderParserINS_WS)
+			if p.HasError() {
+				// Recognition error - abort rule
+				goto errorExit
+			}
+		}
+
+	}
+	{
+		p.SetState(67)
+		p.Match(PlaceholderParserCLOSE)
+		if p.HasError() {
+			// Recognition error - abort rule
+			goto errorExit
+		}
+	}
+
+errorExit:
+	if p.HasError() {
+		v := p.GetError()
+		localctx.SetException(v)
+		p.GetErrorHandler().ReportError(p, v)
+		p.GetErrorHandler().Recover(p, v)
+		p.SetError(nil)
+	}
+	p.ExitRule()
+	return localctx
+	goto errorExit // Trick to prevent compiler error if the label is not used
+}
+
+// IBlockPlaceholderEndContext is an interface to support dynamic dispatch.
+type IBlockPlaceholderEndContext interface {
+	antlr.ParserRuleContext
+
+	// GetParser returns the parser.
+	GetParser() antlr.Parser
+
+	// GetPlaceholderName returns the placeholderName token.
+	GetPlaceholderName() antlr.Token
+
+	// SetPlaceholderName sets the placeholderName token.
+	SetPlaceholderName(antlr.Token)
+
+	// Getter signatures
+	BLOCK_END() antlr.TerminalNode
+	CLOSE() antlr.TerminalNode
+	ID() antlr.TerminalNode
+	AllINS_WS() []antlr.TerminalNode
+	INS_WS(i int) antlr.TerminalNode
+
+	// IsBlockPlaceholderEndContext differentiates from other interfaces.
+	IsBlockPlaceholderEndContext()
+}
+
+type BlockPlaceholderEndContext struct {
+	antlr.BaseParserRuleContext
+	parser          antlr.Parser
+	placeholderName antlr.Token
+}
+
+func NewEmptyBlockPlaceholderEndContext() *BlockPlaceholderEndContext {
+	var p = new(BlockPlaceholderEndContext)
+	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, nil, -1)
+	p.RuleIndex = PlaceholderParserRULE_blockPlaceholderEnd
+	return p
+}
+
+func InitEmptyBlockPlaceholderEndContext(p *BlockPlaceholderEndContext) {
+	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, nil, -1)
+	p.RuleIndex = PlaceholderParserRULE_blockPlaceholderEnd
+}
+
+func (*BlockPlaceholderEndContext) IsBlockPlaceholderEndContext() {}
+
+func NewBlockPlaceholderEndContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *BlockPlaceholderEndContext {
+	var p = new(BlockPlaceholderEndContext)
+
+	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, parent, invokingState)
+
+	p.parser = parser
+	p.RuleIndex = PlaceholderParserRULE_blockPlaceholderEnd
+
+	return p
+}
+
+func (s *BlockPlaceholderEndContext) GetParser() antlr.Parser { return s.parser }
+
+func (s *BlockPlaceholderEndContext) GetPlaceholderName() antlr.Token { return s.placeholderName }
+
+func (s *BlockPlaceholderEndContext) SetPlaceholderName(v antlr.Token) { s.placeholderName = v }
+
+func (s *BlockPlaceholderEndContext) BLOCK_END() antlr.TerminalNode {
+	return s.GetToken(PlaceholderParserBLOCK_END, 0)
+}
+
+func (s *BlockPlaceholderEndContext) CLOSE() antlr.TerminalNode {
+	return s.GetToken(PlaceholderParserCLOSE, 0)
+}
+
+func (s *BlockPlaceholderEndContext) ID() antlr.TerminalNode {
+	return s.GetToken(PlaceholderParserID, 0)
+}
+
+func (s *BlockPlaceholderEndContext) AllINS_WS() []antlr.TerminalNode {
+	return s.GetTokens(PlaceholderParserINS_WS)
+}
+
+func (s *BlockPlaceholderEndContext) INS_WS(i int) antlr.TerminalNode {
+	return s.GetToken(PlaceholderParserINS_WS, i)
+}
+
+func (s *BlockPlaceholderEndContext) GetRuleContext() antlr.RuleContext {
+	return s
+}
+
+func (s *BlockPlaceholderEndContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
+	return antlr.TreesStringTree(s, ruleNames, recog)
+}
+
+func (s *BlockPlaceholderEndContext) EnterRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(PlaceholderParserListener); ok {
+		listenerT.EnterBlockPlaceholderEnd(s)
+	}
+}
+
+func (s *BlockPlaceholderEndContext) ExitRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(PlaceholderParserListener); ok {
+		listenerT.ExitBlockPlaceholderEnd(s)
+	}
+}
+
+func (s *BlockPlaceholderEndContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case PlaceholderParserVisitor:
+		return t.VisitBlockPlaceholderEnd(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
+func (p *PlaceholderParser) BlockPlaceholderEnd() (localctx IBlockPlaceholderEndContext) {
+	localctx = NewBlockPlaceholderEndContext(p, p.GetParserRuleContext(), p.GetState())
+	p.EnterRule(localctx, 14, PlaceholderParserRULE_blockPlaceholderEnd)
+	var _la int
+
+	p.EnterOuterAlt(localctx, 1)
+	{
+		p.SetState(69)
+		p.Match(PlaceholderParserBLOCK_END)
+		if p.HasError() {
+			// Recognition error - abort rule
+			goto errorExit
+		}
+	}
+	p.SetState(71)
+	p.GetErrorHandler().Sync(p)
+	if p.HasError() {
+		goto errorExit
+	}
+	_la = p.GetTokenStream().LA(1)
+
+	if _la == PlaceholderParserINS_WS {
+		{
+			p.SetState(70)
+			p.Match(PlaceholderParserINS_WS)
+			if p.HasError() {
+				// Recognition error - abort rule
+				goto errorExit
+			}
+		}
+
+	}
+	{
+		p.SetState(73)
+
+		var _m = p.Match(PlaceholderParserID)
+
+		localctx.(*BlockPlaceholderEndContext).placeholderName = _m
+		if p.HasError() {
+			// Recognition error - abort rule
+			goto errorExit
+		}
+	}
+	p.SetState(75)
+	p.GetErrorHandler().Sync(p)
+	if p.HasError() {
+		goto errorExit
+	}
+	_la = p.GetTokenStream().LA(1)
+
+	if _la == PlaceholderParserINS_WS {
+		{
+			p.SetState(74)
+			p.Match(PlaceholderParserINS_WS)
+			if p.HasError() {
+				// Recognition error - abort rule
+				goto errorExit
+			}
+		}
+
+	}
+	{
+		p.SetState(77)
+		p.Match(PlaceholderParserCLOSE)
+		if p.HasError() {
+			// Recognition error - abort rule
+			goto errorExit
+		}
+	}
+
+errorExit:
+	if p.HasError() {
+		v := p.GetError()
+		localctx.SetException(v)
+		p.GetErrorHandler().ReportError(p, v)
+		p.GetErrorHandler().Recover(p, v)
+		p.SetError(nil)
+	}
+	p.ExitRule()
+	return localctx
+	goto errorExit // Trick to prevent compiler error if the label is not used
+}
+
+// IBlockPlaceholderContentContext is an interface to support dynamic dispatch.
+type IBlockPlaceholderContentContext interface {
+	antlr.ParserRuleContext
+
+	// GetParser returns the parser.
+	GetParser() antlr.Parser
+
+	// Getter signatures
+	Content() IContentContext
+	AllINS_WS() []antlr.TerminalNode
+	INS_WS(i int) antlr.TerminalNode
+
+	// IsBlockPlaceholderContentContext differentiates from other interfaces.
+	IsBlockPlaceholderContentContext()
+}
+
+type BlockPlaceholderContentContext struct {
+	antlr.BaseParserRuleContext
+	parser antlr.Parser
+}
+
+func NewEmptyBlockPlaceholderContentContext() *BlockPlaceholderContentContext {
+	var p = new(BlockPlaceholderContentContext)
+	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, nil, -1)
+	p.RuleIndex = PlaceholderParserRULE_blockPlaceholderContent
+	return p
+}
+
+func InitEmptyBlockPlaceholderContentContext(p *BlockPlaceholderContentContext) {
+	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, nil, -1)
+	p.RuleIndex = PlaceholderParserRULE_blockPlaceholderContent
+}
+
+func (*BlockPlaceholderContentContext) IsBlockPlaceholderContentContext() {}
+
+func NewBlockPlaceholderContentContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *BlockPlaceholderContentContext {
+	var p = new(BlockPlaceholderContentContext)
+
+	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, parent, invokingState)
+
+	p.parser = parser
+	p.RuleIndex = PlaceholderParserRULE_blockPlaceholderContent
+
+	return p
+}
+
+func (s *BlockPlaceholderContentContext) GetParser() antlr.Parser { return s.parser }
+
+func (s *BlockPlaceholderContentContext) Content() IContentContext {
+	var t antlr.RuleContext
+	for _, ctx := range s.GetChildren() {
+		if _, ok := ctx.(IContentContext); ok {
+			t = ctx.(antlr.RuleContext)
+			break
+		}
+	}
+
+	if t == nil {
+		return nil
+	}
+
+	return t.(IContentContext)
+}
+
+func (s *BlockPlaceholderContentContext) AllINS_WS() []antlr.TerminalNode {
+	return s.GetTokens(PlaceholderParserINS_WS)
+}
+
+func (s *BlockPlaceholderContentContext) INS_WS(i int) antlr.TerminalNode {
+	return s.GetToken(PlaceholderParserINS_WS, i)
+}
+
+func (s *BlockPlaceholderContentContext) GetRuleContext() antlr.RuleContext {
+	return s
+}
+
+func (s *BlockPlaceholderContentContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
+	return antlr.TreesStringTree(s, ruleNames, recog)
+}
+
+func (s *BlockPlaceholderContentContext) EnterRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(PlaceholderParserListener); ok {
+		listenerT.EnterBlockPlaceholderContent(s)
+	}
+}
+
+func (s *BlockPlaceholderContentContext) ExitRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(PlaceholderParserListener); ok {
+		listenerT.ExitBlockPlaceholderContent(s)
+	}
+}
+
+func (s *BlockPlaceholderContentContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case PlaceholderParserVisitor:
+		return t.VisitBlockPlaceholderContent(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
+func (p *PlaceholderParser) BlockPlaceholderContent() (localctx IBlockPlaceholderContentContext) {
+	localctx = NewBlockPlaceholderContentContext(p, p.GetParserRuleContext(), p.GetState())
+	p.EnterRule(localctx, 16, PlaceholderParserRULE_blockPlaceholderContent)
+	var _la int
+
+	p.EnterOuterAlt(localctx, 1)
+	p.SetState(80)
+	p.GetErrorHandler().Sync(p)
+
+	if p.GetInterpreter().AdaptivePredict(p.BaseParser, p.GetTokenStream(), 9, p.GetParserRuleContext()) == 1 {
+		{
+			p.SetState(79)
+			p.Match(PlaceholderParserINS_WS)
+			if p.HasError() {
+				// Recognition error - abort rule
+				goto errorExit
+			}
+		}
+
+	} else if p.HasError() { // JIM
+		goto errorExit
+	}
+	{
+		p.SetState(82)
+		p.Content()
+	}
+	p.SetState(84)
+	p.GetErrorHandler().Sync(p)
+	if p.HasError() {
+		goto errorExit
+	}
+	_la = p.GetTokenStream().LA(1)
+
+	if _la == PlaceholderParserINS_WS {
+		{
+			p.SetState(83)
+			p.Match(PlaceholderParserINS_WS)
+			if p.HasError() {
+				// Recognition error - abort rule
+				goto errorExit
+			}
+		}
+
 	}
 
 errorExit:
@@ -534,26 +1761,9 @@ type IPlaceholderContext interface {
 	// GetParser returns the parser.
 	GetParser() antlr.Parser
 
-	// GetPlaceholderName returns the placeholderName token.
-	GetPlaceholderName() antlr.Token
-
-	// GetPlaceholderEndName returns the placeholderEndName token.
-	GetPlaceholderEndName() antlr.Token
-
-	// SetPlaceholderName sets the placeholderName token.
-	SetPlaceholderName(antlr.Token)
-
-	// SetPlaceholderEndName sets the placeholderEndName token.
-	SetPlaceholderEndName(antlr.Token)
-
 	// Getter signatures
-	OPEN() antlr.TerminalNode
-	AllCLOSE() []antlr.TerminalNode
-	CLOSE(i int) antlr.TerminalNode
-	AllID() []antlr.TerminalNode
-	ID(i int) antlr.TerminalNode
-	Content() IContentContext
-	OPEN_END() antlr.TerminalNode
+	SimplePlaceholder() ISimplePlaceholderContext
+	BlockPlaceholder() IBlockPlaceholderContext
 
 	// IsPlaceholderContext differentiates from other interfaces.
 	IsPlaceholderContext()
@@ -561,9 +1771,7 @@ type IPlaceholderContext interface {
 
 type PlaceholderContext struct {
 	antlr.BaseParserRuleContext
-	parser             antlr.Parser
-	placeholderName    antlr.Token
-	placeholderEndName antlr.Token
+	parser antlr.Parser
 }
 
 func NewEmptyPlaceholderContext() *PlaceholderContext {
@@ -593,38 +1801,10 @@ func NewPlaceholderContext(parser antlr.Parser, parent antlr.ParserRuleContext, 
 
 func (s *PlaceholderContext) GetParser() antlr.Parser { return s.parser }
 
-func (s *PlaceholderContext) GetPlaceholderName() antlr.Token { return s.placeholderName }
-
-func (s *PlaceholderContext) GetPlaceholderEndName() antlr.Token { return s.placeholderEndName }
-
-func (s *PlaceholderContext) SetPlaceholderName(v antlr.Token) { s.placeholderName = v }
-
-func (s *PlaceholderContext) SetPlaceholderEndName(v antlr.Token) { s.placeholderEndName = v }
-
-func (s *PlaceholderContext) OPEN() antlr.TerminalNode {
-	return s.GetToken(PlaceholderParserOPEN, 0)
-}
-
-func (s *PlaceholderContext) AllCLOSE() []antlr.TerminalNode {
-	return s.GetTokens(PlaceholderParserCLOSE)
-}
-
-func (s *PlaceholderContext) CLOSE(i int) antlr.TerminalNode {
-	return s.GetToken(PlaceholderParserCLOSE, i)
-}
-
-func (s *PlaceholderContext) AllID() []antlr.TerminalNode {
-	return s.GetTokens(PlaceholderParserID)
-}
-
-func (s *PlaceholderContext) ID(i int) antlr.TerminalNode {
-	return s.GetToken(PlaceholderParserID, i)
-}
-
-func (s *PlaceholderContext) Content() IContentContext {
+func (s *PlaceholderContext) SimplePlaceholder() ISimplePlaceholderContext {
 	var t antlr.RuleContext
 	for _, ctx := range s.GetChildren() {
-		if _, ok := ctx.(IContentContext); ok {
+		if _, ok := ctx.(ISimplePlaceholderContext); ok {
 			t = ctx.(antlr.RuleContext)
 			break
 		}
@@ -634,11 +1814,23 @@ func (s *PlaceholderContext) Content() IContentContext {
 		return nil
 	}
 
-	return t.(IContentContext)
+	return t.(ISimplePlaceholderContext)
 }
 
-func (s *PlaceholderContext) OPEN_END() antlr.TerminalNode {
-	return s.GetToken(PlaceholderParserOPEN_END, 0)
+func (s *PlaceholderContext) BlockPlaceholder() IBlockPlaceholderContext {
+	var t antlr.RuleContext
+	for _, ctx := range s.GetChildren() {
+		if _, ok := ctx.(IBlockPlaceholderContext); ok {
+			t = ctx.(antlr.RuleContext)
+			break
+		}
+	}
+
+	if t == nil {
+		return nil
+	}
+
+	return t.(IBlockPlaceholderContext)
 }
 
 func (s *PlaceholderContext) GetRuleContext() antlr.RuleContext {
@@ -647,6 +1839,18 @@ func (s *PlaceholderContext) GetRuleContext() antlr.RuleContext {
 
 func (s *PlaceholderContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
 	return antlr.TreesStringTree(s, ruleNames, recog)
+}
+
+func (s *PlaceholderContext) EnterRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(PlaceholderParserListener); ok {
+		listenerT.EnterPlaceholder(s)
+	}
+}
+
+func (s *PlaceholderContext) ExitRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(PlaceholderParserListener); ok {
+		listenerT.ExitPlaceholder(s)
+	}
 }
 
 func (s *PlaceholderContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
@@ -661,83 +1865,30 @@ func (s *PlaceholderContext) Accept(visitor antlr.ParseTreeVisitor) interface{} 
 
 func (p *PlaceholderParser) Placeholder() (localctx IPlaceholderContext) {
 	localctx = NewPlaceholderContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 6, PlaceholderParserRULE_placeholder)
-	p.EnterOuterAlt(localctx, 1)
-	{
-		p.SetState(20)
-		p.Match(PlaceholderParserOPEN)
-		if p.HasError() {
-			// Recognition error - abort rule
-			goto errorExit
-		}
-	}
-	{
-		p.SetState(21)
-
-		var _m = p.Match(PlaceholderParserID)
-
-		localctx.(*PlaceholderContext).placeholderName = _m
-		if p.HasError() {
-			// Recognition error - abort rule
-			goto errorExit
-		}
-	}
-	pushTag(localctx.(*PlaceholderContext).GetPlaceholderName().GetText())
-	{
-		p.SetState(23)
-		p.Match(PlaceholderParserCLOSE)
-		if p.HasError() {
-			// Recognition error - abort rule
-			goto errorExit
-		}
-	}
-	p.SetState(30)
+	p.EnterRule(localctx, 18, PlaceholderParserRULE_placeholder)
+	p.SetState(88)
 	p.GetErrorHandler().Sync(p)
+	if p.HasError() {
+		goto errorExit
+	}
 
-	if p.GetInterpreter().AdaptivePredict(p.BaseParser, p.GetTokenStream(), 2, p.GetParserRuleContext()) == 1 {
+	switch p.GetTokenStream().LA(1) {
+	case PlaceholderParserOPEN:
+		p.EnterOuterAlt(localctx, 1)
 		{
-			p.SetState(24)
-			p.Content()
+			p.SetState(86)
+			p.SimplePlaceholder()
 		}
+
+	case PlaceholderParserBLOCK_OPEN:
+		p.EnterOuterAlt(localctx, 2)
 		{
-			p.SetState(25)
-			p.Match(PlaceholderParserOPEN_END)
-			if p.HasError() {
-				// Recognition error - abort rule
-				goto errorExit
-			}
-		}
-		{
-			p.SetState(26)
-
-			var _m = p.Match(PlaceholderParserID)
-
-			localctx.(*PlaceholderContext).placeholderEndName = _m
-			if p.HasError() {
-				// Recognition error - abort rule
-				goto errorExit
-			}
+			p.SetState(87)
+			p.BlockPlaceholder()
 		}
 
-		name := localctx.(*PlaceholderContext).GetPlaceholderEndName().GetText()
-		tag := peekTag()
-		if tag == name {
-			popTag()
-			// keep as END_TAG
-		} else {
-			goto errorExit
-		}
-
-		{
-			p.SetState(28)
-			p.Match(PlaceholderParserCLOSE)
-			if p.HasError() {
-				// Recognition error - abort rule
-				goto errorExit
-			}
-		}
-
-	} else if p.HasError() { // JIM
+	default:
+		p.SetError(antlr.NewNoViableAltException(p, nil, nil, nil, nil, nil))
 		goto errorExit
 	}
 
