@@ -1,7 +1,7 @@
 package main
 
 import (
-	parser "antrl/gen"
+	parser "antrl/internal/grammar"
 	"antrl/internal/visitor"
 	"fmt"
 	"math/rand"

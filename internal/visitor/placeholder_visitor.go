@@ -1,7 +1,7 @@
 package visitor
 
 import (
-	parser "antrl/gen"
+	parser "antrl/internal/grammar"
 	"math/rand"
 	"time"
 
@@ -25,7 +25,7 @@ type Placeholder struct {
 
 func (p *Placeholder) GetValue() string {
 	rand.Seed(time.Now().UnixNano())
-	time.Sleep(time.Duration(rand.Intn(50)) * time.Millisecond) // ensure different seed for each call
+	//time.Sleep(time.Duration(rand.Intn(50)) * time.Millisecond) // ensure different seed for each call
 	uid := uuid.New()
 	return "PLACEHOLDER_" + p.Name + "_" + uid.String() + "_END"
 }
