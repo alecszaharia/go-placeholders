@@ -80,7 +80,7 @@ type Text struct {
 type Placeholder struct {
 	Name         string
 	IsBlock      bool
-	Attrs        []Attr
+	Attrs        []*Attr
 	ContentStart int // start token index of the content (for block placeholders)
 	ContentEnd   int // end token index of the content (for block placeholders)
 }
