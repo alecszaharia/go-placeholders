@@ -124,7 +124,13 @@ func (v *PlaceholdersVisitor) VisitBlockPlaceholderContent(ctx *parser.BlockPlac
 
 	return nil
 }
+
 func (v *PlaceholdersVisitor) VisitBlockPlaceholder(ctx *parser.BlockPlaceholderContext) interface{} {
+
+	if ctx.BlockPlaceholderStart().GetPlaceholderName().GetText() != ctx.BlockPlaceholderEnd().GetPlaceholderName().GetText() {
+		// Handle the error - log, return error, or panic with context
+		panic("mismatched block placeholder names: |" + ctx.BlockPlaceholderStart().GetPlaceholderName().GetText() + "| != |" + ctx.BlockPlaceholderEnd().GetPlaceholderName().GetText() + "|")
+	}
 
 	n := model.MakeBlockNode(ctx.GetStart().GetTokenIndex(), ctx.GetStop().GetTokenIndex(), v.currentNode)
 	n.Value = &model.Placeholder{
