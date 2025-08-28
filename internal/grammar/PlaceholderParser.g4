@@ -22,7 +22,7 @@ attribute
   ;
 
 simplePlaceholder
-  : OPEN placeholderName=ID attribute* CLOSE
+  : OPEN placeholderName=ID INS_WS* attribute* CLOSE
   ;
 
 blockPlaceholder
@@ -32,15 +32,16 @@ blockPlaceholder
   ;
 
 blockPlaceholderStart:
-    BLOCK_OPEN INS_WS? placeholderName=ID INS_WS? attribute* INS_WS? CLOSE
+    BLOCK_OPEN placeholderName=ID attribute* CLOSE
     ;
 blockPlaceholderEnd:
-    BLOCK_END INS_WS? placeholderName=ID INS_WS? CLOSE
+    BLOCK_END placeholderName=ID CLOSE
     ;
 blockPlaceholderContent:
-    INS_WS? content INS_WS?
+    INS_WS* content INS_WS*
     ;
 
 placeholder
   :  simplePlaceholder | blockPlaceholder
   ;
+

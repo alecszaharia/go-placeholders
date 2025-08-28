@@ -46,8 +46,8 @@ func (v *PlaceholdersVisitor) VisitContent(ctx *parser.ContentContext) interface
 }
 
 func (v *PlaceholdersVisitor) VisitText(ctx *parser.TextContext) interface{} {
-	node := model.MakeTextNode(ctx.GetStart().GetTokenIndex(), ctx.GetStop().GetTokenIndex(), v.currentNode)
-
+	node := model.NewTextNode(ctx.GetStart().GetTokenIndex(), ctx.GetStop().GetTokenIndex(), v.currentNode)
+	//v.adjustTokenPosition(node)
 	// temporary
 	//node.Value.(*model.Text).Text = ctx.GetText()
 
@@ -72,9 +72,18 @@ func (v *PlaceholdersVisitor) VisitPlaceholder(ctx *parser.PlaceholderContext) i
 	return nil
 }
 
+func (v *PlaceholdersVisitor) adjustTokenPosition(node *model.Node) {
+	if parent := node.Parent; node.HasParent() {
+		ph := parent.Value.(*model.Placeholder)
+		node.Start -= ph.ContentStart
+		node.End -= ph.ContentStart
+	}
+}
+
 func (v *PlaceholdersVisitor) VisitSimplePlaceholder(ctx *parser.SimplePlaceholderContext) interface{} {
 
-	node := model.MakePlaceholderNode(ctx.GetStart().GetTokenIndex(), ctx.GetStop().GetTokenIndex(), v.currentNode)
+	node := model.NewPlaceholderNode(ctx.GetStart().GetTokenIndex(), ctx.GetStop().GetTokenIndex(), v.currentNode)
+	//v.adjustTokenPosition(node)
 	v.currentNode = node
 
 	node.Value = &model.Placeholder{
@@ -117,6 +126,7 @@ func (v *PlaceholdersVisitor) VisitBlockPlaceholderContent(ctx *parser.BlockPlac
 		// Handle the error - log, return error, or panic with context
 		panic("expected *model.Placeholder but got different type")
 	}
+
 	placeholder.ContentStart = ctx.GetStart().GetTokenIndex()
 	placeholder.ContentEnd = ctx.GetStop().GetTokenIndex()
 
@@ -132,7 +142,9 @@ func (v *PlaceholdersVisitor) VisitBlockPlaceholder(ctx *parser.BlockPlaceholder
 		panic("mismatched block placeholder names: |" + ctx.BlockPlaceholderStart().GetPlaceholderName().GetText() + "| != |" + ctx.BlockPlaceholderEnd().GetPlaceholderName().GetText() + "|")
 	}
 
-	n := model.MakeBlockNode(ctx.GetStart().GetTokenIndex(), ctx.GetStop().GetTokenIndex(), v.currentNode)
+	n := model.NewBlockNode(ctx.GetStart().GetTokenIndex(), ctx.GetStop().GetTokenIndex(), v.currentNode)
+	//v.adjustTokenPosition(n)
+
 	n.Value = &model.Placeholder{
 		IsBlock: true,
 	}

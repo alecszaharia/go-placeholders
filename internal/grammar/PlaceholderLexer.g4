@@ -13,7 +13,7 @@ LBRACE_AS_TEXT : '{' -> type(TEXT);  // treat single '{' as plain text
 // ------------- Inside mode (placeholders) -------------
 mode INSIDE; // tokens recognized between OPEN and CLOSE
 
-ID      : [a-zA-Z_]+ ;
+ID      : [a-zA-Z][a-zA-Z0-9]* ;
 INS_WS  : [ \t\r\n]+ -> skip ;
 EQ      : '=' ;
 CLOSE   : '}}' -> popMode ;

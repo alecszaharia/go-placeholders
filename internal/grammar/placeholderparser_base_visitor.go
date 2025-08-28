@@ -1,4 +1,4 @@
-// Code generated from /Users/alecszaharia/GolandProjects/go-placeholders/internal/grammar/PlaceholderParser.g4 by ANTLR 4.13.2. DO NOT EDIT.
+// Code generated from /home/alex/GolandProjects/go-placeholders/internal/grammar/PlaceholderParser.g4 by ANTLR 4.13.2. DO NOT EDIT.
 
 package parser // PlaceholderParser
 
