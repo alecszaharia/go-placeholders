@@ -1,4 +1,4 @@
-// Code generated from /home/alex/GolandProjects/go-placeholders/internal/grammar/PlaceholderParser.g4 by ANTLR 4.13.2. DO NOT EDIT.
+// Code generated from /Users/alecszaharia/GolandProjects/go-placeholders/internal/grammar/PlaceholderParser.g4 by ANTLR 4.13.2. DO NOT EDIT.
 
 package parser // PlaceholderParser
 
@@ -33,8 +33,7 @@ var PlaceholderParserParserStaticData struct {
 func placeholderparserParserInit() {
 	staticData := &PlaceholderParserParserStaticData
 	staticData.LiteralNames = []string{
-		"", "'{{block_'", "'{{end_'", "'{{'", "", "", "", "'='", "'}}'", "",
-		"'{'",
+		"", "", "", "", "", "", "", "'='", "", "", "'{'",
 	}
 	staticData.SymbolicNames = []string{
 		"", "BLOCK_OPEN", "BLOCK_END", "OPEN", "TEXT", "ID", "INS_WS", "EQ",
@@ -47,40 +46,34 @@ func placeholderparserParserInit() {
 	}
 	staticData.PredictionContextCache = antlr.NewPredictionContextCache()
 	staticData.serializedATN = []int32{
-		4, 1, 10, 88, 2, 0, 7, 0, 2, 1, 7, 1, 2, 2, 7, 2, 2, 3, 7, 3, 2, 4, 7,
+		4, 1, 10, 76, 2, 0, 7, 0, 2, 1, 7, 1, 2, 2, 7, 2, 2, 3, 7, 3, 2, 4, 7,
 		4, 2, 5, 7, 5, 2, 6, 7, 6, 2, 7, 7, 7, 2, 8, 7, 8, 2, 9, 7, 9, 1, 0, 1,
 		0, 1, 0, 1, 1, 1, 1, 5, 1, 26, 8, 1, 10, 1, 12, 1, 29, 9, 1, 1, 2, 1, 2,
-		1, 3, 1, 3, 1, 3, 1, 3, 1, 4, 1, 4, 1, 4, 5, 4, 40, 8, 4, 10, 4, 12, 4,
-		43, 9, 4, 1, 4, 5, 4, 46, 8, 4, 10, 4, 12, 4, 49, 9, 4, 1, 4, 1, 4, 1,
-		5, 1, 5, 1, 5, 1, 5, 1, 6, 1, 6, 1, 6, 5, 6, 60, 8, 6, 10, 6, 12, 6, 63,
-		9, 6, 1, 6, 1, 6, 1, 7, 1, 7, 1, 7, 1, 7, 1, 8, 5, 8, 72, 8, 8, 10, 8,
-		12, 8, 75, 9, 8, 1, 8, 1, 8, 5, 8, 79, 8, 8, 10, 8, 12, 8, 82, 9, 8, 1,
-		9, 1, 9, 3, 9, 86, 8, 9, 1, 9, 0, 0, 10, 0, 2, 4, 6, 8, 10, 12, 14, 16,
-		18, 0, 0, 85, 0, 20, 1, 0, 0, 0, 2, 27, 1, 0, 0, 0, 4, 30, 1, 0, 0, 0,
-		6, 32, 1, 0, 0, 0, 8, 36, 1, 0, 0, 0, 10, 52, 1, 0, 0, 0, 12, 56, 1, 0,
-		0, 0, 14, 66, 1, 0, 0, 0, 16, 73, 1, 0, 0, 0, 18, 85, 1, 0, 0, 0, 20, 21,
-		3, 2, 1, 0, 21, 22, 5, 0, 0, 1, 22, 1, 1, 0, 0, 0, 23, 26, 3, 4, 2, 0,
-		24, 26, 3, 18, 9, 0, 25, 23, 1, 0, 0, 0, 25, 24, 1, 0, 0, 0, 26, 29, 1,
-		0, 0, 0, 27, 25, 1, 0, 0, 0, 27, 28, 1, 0, 0, 0, 28, 3, 1, 0, 0, 0, 29,
-		27, 1, 0, 0, 0, 30, 31, 5, 4, 0, 0, 31, 5, 1, 0, 0, 0, 32, 33, 5, 5, 0,
-		0, 33, 34, 5, 7, 0, 0, 34, 35, 5, 9, 0, 0, 35, 7, 1, 0, 0, 0, 36, 37, 5,
-		3, 0, 0, 37, 41, 5, 5, 0, 0, 38, 40, 5, 6, 0, 0, 39, 38, 1, 0, 0, 0, 40,
-		43, 1, 0, 0, 0, 41, 39, 1, 0, 0, 0, 41, 42, 1, 0, 0, 0, 42, 47, 1, 0, 0,
-		0, 43, 41, 1, 0, 0, 0, 44, 46, 3, 6, 3, 0, 45, 44, 1, 0, 0, 0, 46, 49,
-		1, 0, 0, 0, 47, 45, 1, 0, 0, 0, 47, 48, 1, 0, 0, 0, 48, 50, 1, 0, 0, 0,
-		49, 47, 1, 0, 0, 0, 50, 51, 5, 8, 0, 0, 51, 9, 1, 0, 0, 0, 52, 53, 3, 12,
-		6, 0, 53, 54, 3, 16, 8, 0, 54, 55, 3, 14, 7, 0, 55, 11, 1, 0, 0, 0, 56,
-		57, 5, 1, 0, 0, 57, 61, 5, 5, 0, 0, 58, 60, 3, 6, 3, 0, 59, 58, 1, 0, 0,
-		0, 60, 63, 1, 0, 0, 0, 61, 59, 1, 0, 0, 0, 61, 62, 1, 0, 0, 0, 62, 64,
-		1, 0, 0, 0, 63, 61, 1, 0, 0, 0, 64, 65, 5, 8, 0, 0, 65, 13, 1, 0, 0, 0,
-		66, 67, 5, 2, 0, 0, 67, 68, 5, 5, 0, 0, 68, 69, 5, 8, 0, 0, 69, 15, 1,
-		0, 0, 0, 70, 72, 5, 6, 0, 0, 71, 70, 1, 0, 0, 0, 72, 75, 1, 0, 0, 0, 73,
-		71, 1, 0, 0, 0, 73, 74, 1, 0, 0, 0, 74, 76, 1, 0, 0, 0, 75, 73, 1, 0, 0,
-		0, 76, 80, 3, 2, 1, 0, 77, 79, 5, 6, 0, 0, 78, 77, 1, 0, 0, 0, 79, 82,
-		1, 0, 0, 0, 80, 78, 1, 0, 0, 0, 80, 81, 1, 0, 0, 0, 81, 17, 1, 0, 0, 0,
-		82, 80, 1, 0, 0, 0, 83, 86, 3, 8, 4, 0, 84, 86, 3, 10, 5, 0, 85, 83, 1,
-		0, 0, 0, 85, 84, 1, 0, 0, 0, 86, 19, 1, 0, 0, 0, 8, 25, 27, 41, 47, 61,
-		73, 80, 85,
+		1, 3, 4, 3, 34, 8, 3, 11, 3, 12, 3, 35, 1, 3, 1, 3, 1, 3, 1, 3, 1, 4, 1,
+		4, 1, 4, 5, 4, 45, 8, 4, 10, 4, 12, 4, 48, 9, 4, 1, 4, 1, 4, 1, 5, 1, 5,
+		1, 5, 1, 5, 1, 6, 1, 6, 1, 6, 5, 6, 59, 8, 6, 10, 6, 12, 6, 62, 9, 6, 1,
+		6, 1, 6, 1, 7, 1, 7, 1, 7, 1, 7, 1, 8, 1, 8, 1, 9, 1, 9, 3, 9, 74, 8, 9,
+		1, 9, 0, 0, 10, 0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 0, 0, 71, 0, 20, 1,
+		0, 0, 0, 2, 27, 1, 0, 0, 0, 4, 30, 1, 0, 0, 0, 6, 33, 1, 0, 0, 0, 8, 41,
+		1, 0, 0, 0, 10, 51, 1, 0, 0, 0, 12, 55, 1, 0, 0, 0, 14, 65, 1, 0, 0, 0,
+		16, 69, 1, 0, 0, 0, 18, 73, 1, 0, 0, 0, 20, 21, 3, 2, 1, 0, 21, 22, 5,
+		0, 0, 1, 22, 1, 1, 0, 0, 0, 23, 26, 3, 4, 2, 0, 24, 26, 3, 18, 9, 0, 25,
+		23, 1, 0, 0, 0, 25, 24, 1, 0, 0, 0, 26, 29, 1, 0, 0, 0, 27, 25, 1, 0, 0,
+		0, 27, 28, 1, 0, 0, 0, 28, 3, 1, 0, 0, 0, 29, 27, 1, 0, 0, 0, 30, 31, 5,
+		4, 0, 0, 31, 5, 1, 0, 0, 0, 32, 34, 5, 6, 0, 0, 33, 32, 1, 0, 0, 0, 34,
+		35, 1, 0, 0, 0, 35, 33, 1, 0, 0, 0, 35, 36, 1, 0, 0, 0, 36, 37, 1, 0, 0,
+		0, 37, 38, 5, 5, 0, 0, 38, 39, 5, 7, 0, 0, 39, 40, 5, 9, 0, 0, 40, 7, 1,
+		0, 0, 0, 41, 42, 5, 3, 0, 0, 42, 46, 5, 5, 0, 0, 43, 45, 3, 6, 3, 0, 44,
+		43, 1, 0, 0, 0, 45, 48, 1, 0, 0, 0, 46, 44, 1, 0, 0, 0, 46, 47, 1, 0, 0,
+		0, 47, 49, 1, 0, 0, 0, 48, 46, 1, 0, 0, 0, 49, 50, 5, 8, 0, 0, 50, 9, 1,
+		0, 0, 0, 51, 52, 3, 12, 6, 0, 52, 53, 3, 16, 8, 0, 53, 54, 3, 14, 7, 0,
+		54, 11, 1, 0, 0, 0, 55, 56, 5, 1, 0, 0, 56, 60, 5, 5, 0, 0, 57, 59, 3,
+		6, 3, 0, 58, 57, 1, 0, 0, 0, 59, 62, 1, 0, 0, 0, 60, 58, 1, 0, 0, 0, 60,
+		61, 1, 0, 0, 0, 61, 63, 1, 0, 0, 0, 62, 60, 1, 0, 0, 0, 63, 64, 5, 8, 0,
+		0, 64, 13, 1, 0, 0, 0, 65, 66, 5, 2, 0, 0, 66, 67, 5, 5, 0, 0, 67, 68,
+		5, 8, 0, 0, 68, 15, 1, 0, 0, 0, 69, 70, 3, 2, 1, 0, 70, 17, 1, 0, 0, 0,
+		71, 74, 3, 8, 4, 0, 72, 74, 3, 10, 5, 0, 73, 71, 1, 0, 0, 0, 73, 72, 1,
+		0, 0, 0, 74, 19, 1, 0, 0, 0, 6, 25, 27, 35, 46, 60, 73,
 	}
 	deserializer := antlr.NewATNDeserializer(nil)
 	staticData.atn = deserializer.Deserialize(staticData.serializedATN)
@@ -621,6 +614,8 @@ type IAttributeContext interface {
 	EQ() antlr.TerminalNode
 	ID() antlr.TerminalNode
 	STRING() antlr.TerminalNode
+	AllINS_WS() []antlr.TerminalNode
+	INS_WS(i int) antlr.TerminalNode
 
 	// IsAttributeContext differentiates from other interfaces.
 	IsAttributeContext()
@@ -680,6 +675,14 @@ func (s *AttributeContext) STRING() antlr.TerminalNode {
 	return s.GetToken(PlaceholderParserSTRING, 0)
 }
 
+func (s *AttributeContext) AllINS_WS() []antlr.TerminalNode {
+	return s.GetTokens(PlaceholderParserINS_WS)
+}
+
+func (s *AttributeContext) INS_WS(i int) antlr.TerminalNode {
+	return s.GetToken(PlaceholderParserINS_WS, i)
+}
+
 func (s *AttributeContext) GetRuleContext() antlr.RuleContext {
 	return s
 }
@@ -713,9 +716,35 @@ func (s *AttributeContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
 func (p *PlaceholderParser) Attribute() (localctx IAttributeContext) {
 	localctx = NewAttributeContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 6, PlaceholderParserRULE_attribute)
+	var _la int
+
 	p.EnterOuterAlt(localctx, 1)
+	p.SetState(33)
+	p.GetErrorHandler().Sync(p)
+	if p.HasError() {
+		goto errorExit
+	}
+	_la = p.GetTokenStream().LA(1)
+
+	for ok := true; ok; ok = _la == PlaceholderParserINS_WS {
+		{
+			p.SetState(32)
+			p.Match(PlaceholderParserINS_WS)
+			if p.HasError() {
+				// Recognition error - abort rule
+				goto errorExit
+			}
+		}
+
+		p.SetState(35)
+		p.GetErrorHandler().Sync(p)
+		if p.HasError() {
+			goto errorExit
+		}
+		_la = p.GetTokenStream().LA(1)
+	}
 	{
-		p.SetState(32)
+		p.SetState(37)
 
 		var _m = p.Match(PlaceholderParserID)
 
@@ -726,7 +755,7 @@ func (p *PlaceholderParser) Attribute() (localctx IAttributeContext) {
 		}
 	}
 	{
-		p.SetState(33)
+		p.SetState(38)
 		p.Match(PlaceholderParserEQ)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -734,7 +763,7 @@ func (p *PlaceholderParser) Attribute() (localctx IAttributeContext) {
 		}
 	}
 	{
-		p.SetState(34)
+		p.SetState(39)
 
 		var _m = p.Match(PlaceholderParserSTRING)
 
@@ -775,8 +804,6 @@ type ISimplePlaceholderContext interface {
 	OPEN() antlr.TerminalNode
 	CLOSE() antlr.TerminalNode
 	ID() antlr.TerminalNode
-	AllINS_WS() []antlr.TerminalNode
-	INS_WS(i int) antlr.TerminalNode
 	AllAttribute() []IAttributeContext
 	Attribute(i int) IAttributeContext
 
@@ -831,14 +858,6 @@ func (s *SimplePlaceholderContext) CLOSE() antlr.TerminalNode {
 
 func (s *SimplePlaceholderContext) ID() antlr.TerminalNode {
 	return s.GetToken(PlaceholderParserID, 0)
-}
-
-func (s *SimplePlaceholderContext) AllINS_WS() []antlr.TerminalNode {
-	return s.GetTokens(PlaceholderParserINS_WS)
-}
-
-func (s *SimplePlaceholderContext) INS_WS(i int) antlr.TerminalNode {
-	return s.GetToken(PlaceholderParserINS_WS, i)
 }
 
 func (s *SimplePlaceholderContext) AllAttribute() []IAttributeContext {
@@ -919,7 +938,7 @@ func (p *PlaceholderParser) SimplePlaceholder() (localctx ISimplePlaceholderCont
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(36)
+		p.SetState(41)
 		p.Match(PlaceholderParserOPEN)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -927,7 +946,7 @@ func (p *PlaceholderParser) SimplePlaceholder() (localctx ISimplePlaceholderCont
 		}
 	}
 	{
-		p.SetState(37)
+		p.SetState(42)
 
 		var _m = p.Match(PlaceholderParserID)
 
@@ -937,7 +956,7 @@ func (p *PlaceholderParser) SimplePlaceholder() (localctx ISimplePlaceholderCont
 			goto errorExit
 		}
 	}
-	p.SetState(41)
+	p.SetState(46)
 	p.GetErrorHandler().Sync(p)
 	if p.HasError() {
 		goto errorExit
@@ -946,35 +965,11 @@ func (p *PlaceholderParser) SimplePlaceholder() (localctx ISimplePlaceholderCont
 
 	for _la == PlaceholderParserINS_WS {
 		{
-			p.SetState(38)
-			p.Match(PlaceholderParserINS_WS)
-			if p.HasError() {
-				// Recognition error - abort rule
-				goto errorExit
-			}
-		}
-
-		p.SetState(43)
-		p.GetErrorHandler().Sync(p)
-		if p.HasError() {
-			goto errorExit
-		}
-		_la = p.GetTokenStream().LA(1)
-	}
-	p.SetState(47)
-	p.GetErrorHandler().Sync(p)
-	if p.HasError() {
-		goto errorExit
-	}
-	_la = p.GetTokenStream().LA(1)
-
-	for _la == PlaceholderParserID {
-		{
-			p.SetState(44)
+			p.SetState(43)
 			p.Attribute()
 		}
 
-		p.SetState(49)
+		p.SetState(48)
 		p.GetErrorHandler().Sync(p)
 		if p.HasError() {
 			goto errorExit
@@ -982,7 +977,7 @@ func (p *PlaceholderParser) SimplePlaceholder() (localctx ISimplePlaceholderCont
 		_la = p.GetTokenStream().LA(1)
 	}
 	{
-		p.SetState(50)
+		p.SetState(49)
 		p.Match(PlaceholderParserCLOSE)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -1134,15 +1129,15 @@ func (p *PlaceholderParser) BlockPlaceholder() (localctx IBlockPlaceholderContex
 	p.EnterRule(localctx, 10, PlaceholderParserRULE_blockPlaceholder)
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(52)
+		p.SetState(51)
 		p.BlockPlaceholderStart()
 	}
 	{
-		p.SetState(53)
+		p.SetState(52)
 		p.BlockPlaceholderContent()
 	}
 	{
-		p.SetState(54)
+		p.SetState(53)
 		p.BlockPlaceholderEnd()
 	}
 
@@ -1310,7 +1305,7 @@ func (p *PlaceholderParser) BlockPlaceholderStart() (localctx IBlockPlaceholderS
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(56)
+		p.SetState(55)
 		p.Match(PlaceholderParserBLOCK_OPEN)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -1318,7 +1313,7 @@ func (p *PlaceholderParser) BlockPlaceholderStart() (localctx IBlockPlaceholderS
 		}
 	}
 	{
-		p.SetState(57)
+		p.SetState(56)
 
 		var _m = p.Match(PlaceholderParserID)
 
@@ -1328,20 +1323,20 @@ func (p *PlaceholderParser) BlockPlaceholderStart() (localctx IBlockPlaceholderS
 			goto errorExit
 		}
 	}
-	p.SetState(61)
+	p.SetState(60)
 	p.GetErrorHandler().Sync(p)
 	if p.HasError() {
 		goto errorExit
 	}
 	_la = p.GetTokenStream().LA(1)
 
-	for _la == PlaceholderParserID {
+	for _la == PlaceholderParserINS_WS {
 		{
-			p.SetState(58)
+			p.SetState(57)
 			p.Attribute()
 		}
 
-		p.SetState(63)
+		p.SetState(62)
 		p.GetErrorHandler().Sync(p)
 		if p.HasError() {
 			goto errorExit
@@ -1349,7 +1344,7 @@ func (p *PlaceholderParser) BlockPlaceholderStart() (localctx IBlockPlaceholderS
 		_la = p.GetTokenStream().LA(1)
 	}
 	{
-		p.SetState(64)
+		p.SetState(63)
 		p.Match(PlaceholderParserCLOSE)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -1476,7 +1471,7 @@ func (p *PlaceholderParser) BlockPlaceholderEnd() (localctx IBlockPlaceholderEnd
 	p.EnterRule(localctx, 14, PlaceholderParserRULE_blockPlaceholderEnd)
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(66)
+		p.SetState(65)
 		p.Match(PlaceholderParserBLOCK_END)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -1484,7 +1479,7 @@ func (p *PlaceholderParser) BlockPlaceholderEnd() (localctx IBlockPlaceholderEnd
 		}
 	}
 	{
-		p.SetState(67)
+		p.SetState(66)
 
 		var _m = p.Match(PlaceholderParserID)
 
@@ -1495,7 +1490,7 @@ func (p *PlaceholderParser) BlockPlaceholderEnd() (localctx IBlockPlaceholderEnd
 		}
 	}
 	{
-		p.SetState(68)
+		p.SetState(67)
 		p.Match(PlaceholderParserCLOSE)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -1525,8 +1520,6 @@ type IBlockPlaceholderContentContext interface {
 
 	// Getter signatures
 	Content() IContentContext
-	AllINS_WS() []antlr.TerminalNode
-	INS_WS(i int) antlr.TerminalNode
 
 	// IsBlockPlaceholderContentContext differentiates from other interfaces.
 	IsBlockPlaceholderContentContext()
@@ -1580,14 +1573,6 @@ func (s *BlockPlaceholderContentContext) Content() IContentContext {
 	return t.(IContentContext)
 }
 
-func (s *BlockPlaceholderContentContext) AllINS_WS() []antlr.TerminalNode {
-	return s.GetTokens(PlaceholderParserINS_WS)
-}
-
-func (s *BlockPlaceholderContentContext) INS_WS(i int) antlr.TerminalNode {
-	return s.GetToken(PlaceholderParserINS_WS, i)
-}
-
 func (s *BlockPlaceholderContentContext) GetRuleContext() antlr.RuleContext {
 	return s
 }
@@ -1621,69 +1606,10 @@ func (s *BlockPlaceholderContentContext) Accept(visitor antlr.ParseTreeVisitor) 
 func (p *PlaceholderParser) BlockPlaceholderContent() (localctx IBlockPlaceholderContentContext) {
 	localctx = NewBlockPlaceholderContentContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 16, PlaceholderParserRULE_blockPlaceholderContent)
-	var _la int
-
-	var _alt int
-
 	p.EnterOuterAlt(localctx, 1)
-	p.SetState(73)
-	p.GetErrorHandler().Sync(p)
-	if p.HasError() {
-		goto errorExit
-	}
-	_alt = p.GetInterpreter().AdaptivePredict(p.BaseParser, p.GetTokenStream(), 5, p.GetParserRuleContext())
-	if p.HasError() {
-		goto errorExit
-	}
-	for _alt != 2 && _alt != antlr.ATNInvalidAltNumber {
-		if _alt == 1 {
-			{
-				p.SetState(70)
-				p.Match(PlaceholderParserINS_WS)
-				if p.HasError() {
-					// Recognition error - abort rule
-					goto errorExit
-				}
-			}
-
-		}
-		p.SetState(75)
-		p.GetErrorHandler().Sync(p)
-		if p.HasError() {
-			goto errorExit
-		}
-		_alt = p.GetInterpreter().AdaptivePredict(p.BaseParser, p.GetTokenStream(), 5, p.GetParserRuleContext())
-		if p.HasError() {
-			goto errorExit
-		}
-	}
 	{
-		p.SetState(76)
+		p.SetState(69)
 		p.Content()
-	}
-	p.SetState(80)
-	p.GetErrorHandler().Sync(p)
-	if p.HasError() {
-		goto errorExit
-	}
-	_la = p.GetTokenStream().LA(1)
-
-	for _la == PlaceholderParserINS_WS {
-		{
-			p.SetState(77)
-			p.Match(PlaceholderParserINS_WS)
-			if p.HasError() {
-				// Recognition error - abort rule
-				goto errorExit
-			}
-		}
-
-		p.SetState(82)
-		p.GetErrorHandler().Sync(p)
-		if p.HasError() {
-			goto errorExit
-		}
-		_la = p.GetTokenStream().LA(1)
 	}
 
 errorExit:
@@ -1811,7 +1737,7 @@ func (s *PlaceholderContext) Accept(visitor antlr.ParseTreeVisitor) interface{} 
 func (p *PlaceholderParser) Placeholder() (localctx IPlaceholderContext) {
 	localctx = NewPlaceholderContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 18, PlaceholderParserRULE_placeholder)
-	p.SetState(85)
+	p.SetState(73)
 	p.GetErrorHandler().Sync(p)
 	if p.HasError() {
 		goto errorExit
@@ -1821,14 +1747,14 @@ func (p *PlaceholderParser) Placeholder() (localctx IPlaceholderContext) {
 	case PlaceholderParserOPEN:
 		p.EnterOuterAlt(localctx, 1)
 		{
-			p.SetState(83)
+			p.SetState(71)
 			p.SimplePlaceholder()
 		}
 
 	case PlaceholderParserBLOCK_OPEN:
 		p.EnterOuterAlt(localctx, 2)
 		{
-			p.SetState(84)
+			p.SetState(72)
 			p.BlockPlaceholder()
 		}
 

@@ -53,6 +53,7 @@ func (r *Replacer) Replace() string {
 		switch node.Type {
 
 		case model.NodePlaceholder:
+			wg.Add(1)
 			go func() {
 				defer wg.Done()
 				if content := r.replaceNodeWithPlaceholderValue(tokens, node); content != "" {
@@ -65,9 +66,9 @@ func (r *Replacer) Replace() string {
 					mu.Unlock()
 				}
 			}()
-			wg.Add(1)
 
 		case model.NodeBlock:
+			wg.Add(1)
 			go func() {
 				defer wg.Done()
 				if content := r.replaceBlockNodeWithPlaceholderValue(tokens, node); content != "" {
@@ -80,7 +81,7 @@ func (r *Replacer) Replace() string {
 					mu.Unlock()
 				}
 			}()
-			wg.Add(1)
+
 		}
 	}
 
@@ -196,11 +197,8 @@ func (r *Replacer) replaceBlockNodeWithPlaceholderValueSync(tokens *antlr.Common
 
 	repl := New(r.group)
 	repl.Prepare(contentInput)
-	mu := &sync.Mutex{}
 	for i := 0; i < 2; i++ {
-		mu.Lock()
 		res.WriteString(repl.ReplaceSync())
-		mu.Unlock()
 	}
 
 	return res.String()

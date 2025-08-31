@@ -8,9 +8,5 @@ EQ=7
 CLOSE=8
 STRING=9
 LBRACE_AS_TEXT=10
-'{{block_'=1
-'{{end_'=2
-'{{'=3
 '{'=10
 '='=7
-'}}'=8

@@ -18,11 +18,11 @@ text
   ;
 
 attribute
-  : name=ID EQ value=STRING
+  :  INS_WS+ name=ID EQ value=STRING
   ;
 
 simplePlaceholder
-  : OPEN placeholderName=ID INS_WS* attribute* CLOSE
+  : OPEN placeholderName=ID attribute* CLOSE
   ;
 
 blockPlaceholder
@@ -38,7 +38,7 @@ blockPlaceholderEnd:
     BLOCK_END placeholderName=ID CLOSE
     ;
 blockPlaceholderContent:
-    INS_WS* content INS_WS*
+    content
     ;
 
 placeholder
