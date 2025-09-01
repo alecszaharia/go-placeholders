@@ -9,20 +9,12 @@ import (
 
 type PlaceholdersVisitor struct {
 	*parser.BasePlaceholderParserVisitor
-	Nodes       []*model.Node
-	currentNode *model.Node
+	Node *model.Node
 }
 
 func NewPlaceholdersVisitor() *PlaceholdersVisitor {
 	return &PlaceholdersVisitor{
 		BasePlaceholderParserVisitor: &parser.BasePlaceholderParserVisitor{},
-		Nodes:                        make([]*model.Node, 0, 160),
-	}
-}
-
-func (v *PlaceholdersVisitor) pushRootIfTop(n *model.Node) {
-	if n.Parent == nil {
-		v.Nodes = append(v.Nodes, n)
 	}
 }
 
@@ -35,8 +27,8 @@ func (v *PlaceholdersVisitor) visitChildren(ctx antlr.RuleNode) {
 }
 
 func (v *PlaceholdersVisitor) VisitTemplate(ctx *parser.TemplateContext) interface{} {
+	v.Node = model.NewRootNode(ctx.GetStart().GetTokenIndex(), ctx.GetStop().GetTokenIndex())
 	v.visitChildren(ctx)
-
 	return nil
 }
 
@@ -46,18 +38,14 @@ func (v *PlaceholdersVisitor) VisitContent(ctx *parser.ContentContext) interface
 }
 
 func (v *PlaceholdersVisitor) VisitText(ctx *parser.TextContext) interface{} {
-	node := model.NewTextNode(ctx.GetStart().GetTokenIndex(), ctx.GetStop().GetTokenIndex(), v.currentNode)
-	//v.adjustTokenPosition(node)
-	// temporary
-	//node.Value.(*model.Text).Text = ctx.GetText()
-
-	v.pushRootIfTop(node)
-
+	node := model.NewTextNode(ctx.GetStart().GetTokenIndex(), ctx.GetStop().GetTokenIndex(), v.Node)
+	node.Value = &model.Text{Text: ctx.GetText()}
+	v.Node.AddChild(node)
 	return nil
 }
 
 func (v *PlaceholdersVisitor) VisitAttribute(ctx *parser.AttributeContext) interface{} {
-	placeholder, ok := v.currentNode.Value.(*model.Placeholder)
+	placeholder, ok := v.Node.Value.(*model.Placeholder)
 	if !ok {
 		// Handle the error - log, return error, or panic with context
 		panic("expected *model.Placeholder but got different type")
@@ -72,44 +60,33 @@ func (v *PlaceholdersVisitor) VisitPlaceholder(ctx *parser.PlaceholderContext) i
 	return nil
 }
 
-func (v *PlaceholdersVisitor) adjustTokenPosition(node *model.Node) {
-	if parent := node.Parent; node.HasParent() {
-		ph := parent.Value.(*model.Placeholder)
-		node.Start -= ph.ContentStart
-		node.End -= ph.ContentStart
-	}
-}
-
 func (v *PlaceholdersVisitor) VisitSimplePlaceholder(ctx *parser.SimplePlaceholderContext) interface{} {
 
-	node := model.NewPlaceholderNode(ctx.GetStart().GetTokenIndex(), ctx.GetStop().GetTokenIndex(), v.currentNode)
-	//v.adjustTokenPosition(node)
-	v.currentNode = node
-
+	node := model.NewPlaceholderNode(ctx.GetStart().GetTokenIndex(), ctx.GetStop().GetTokenIndex())
 	node.Value = &model.Placeholder{
 		Name:    ctx.GetPlaceholderName().GetText(),
 		IsBlock: false,
 	}
 
+	v.Node.AddChild(node)
+
+	// Move down to the new node
+
 	if ctx.AllAttribute() != nil {
+		v.Node = node
 		attrCount := len(ctx.AllAttribute())
-
 		node.Value.(*model.Placeholder).Attrs = make([]*model.Attr, 0, attrCount)
-
 		for _, attr := range ctx.AllAttribute() {
 			attr.Accept(v)
 		}
+		// Pop back to the parent node
+		v.Node = v.Node.Parent
 	}
-
-	// Pop back to the parent node
-	v.currentNode = v.currentNode.Parent
-
-	v.pushRootIfTop(node)
 
 	return nil
 }
 func (v *PlaceholdersVisitor) VisitBlockPlaceholderStart(ctx *parser.BlockPlaceholderStartContext) interface{} {
-	placeholder, ok := v.currentNode.Value.(*model.Placeholder)
+	placeholder, ok := v.Node.Value.(*model.Placeholder)
 	if !ok {
 		// Handle the error - log, return error, or panic with context
 		panic("expected *model.Placeholder but got different type")
@@ -121,7 +98,7 @@ func (v *PlaceholdersVisitor) VisitBlockPlaceholderStart(ctx *parser.BlockPlaceh
 
 func (v *PlaceholdersVisitor) VisitBlockPlaceholderContent(ctx *parser.BlockPlaceholderContentContext) interface{} {
 	//fmt.Printf("VisitBlockPlaceholderContent: %s \n", ctx.GetText())
-	placeholder, ok := v.currentNode.Value.(*model.Placeholder)
+	placeholder, ok := v.Node.Value.(*model.Placeholder)
 	if !ok {
 		// Handle the error - log, return error, or panic with context
 		panic("expected *model.Placeholder but got different type")
@@ -142,19 +119,17 @@ func (v *PlaceholdersVisitor) VisitBlockPlaceholder(ctx *parser.BlockPlaceholder
 		panic("mismatched block placeholder names: |" + ctx.BlockPlaceholderStart().GetPlaceholderName().GetText() + "| != |" + ctx.BlockPlaceholderEnd().GetPlaceholderName().GetText() + "|")
 	}
 
-	n := model.NewBlockNode(ctx.GetStart().GetTokenIndex(), ctx.GetStop().GetTokenIndex(), v.currentNode)
-	//v.adjustTokenPosition(n)
-
-	n.Value = &model.Placeholder{
+	node := model.NewBlockNode(ctx.GetStart().GetTokenIndex(), ctx.GetStop().GetTokenIndex())
+	node.Value = &model.Placeholder{
 		IsBlock: true,
 	}
 
-	v.currentNode = n
-	v.visitChildren(ctx)
-	v.pushRootIfTop(n)
+	v.Node.AddChild(node)
 
-	// Pop back to the parent node
-	v.currentNode = v.currentNode.Parent
+	// Move down to the new node
+	v.Node = node
+	v.visitChildren(ctx)
+	v.Node = v.Node.Parent
 
 	return nil
 }

@@ -12,10 +12,8 @@ import (
 )
 
 type Replacer struct {
-	group    *placeholder.Group           // group of placeholders
-	tokens   *antlr.CommonTokenStream     // all tokens from the lexer
-	rewriter *antlr.TokenStreamRewriter   // token rewriter to perform replacements
-	visitor  *visitor.PlaceholdersVisitor // token rewriter to perform replacements
+	group    *placeholder.Group       // group of placeholders
+	tokens   *antlr.CommonTokenStream // all tokens from the lexer
 	template parser.ITemplateContext
 }
 
@@ -25,45 +23,42 @@ func New(group *placeholder.Group) *Replacer {
 	}
 }
 
-func (r *Replacer) Prepare(inputStr string) {
+func (r *Replacer) Replace(inputStr string) string {
 	input := antlr.NewInputStream(inputStr)
 	lexer := parser.NewPlaceholderLexer(input)
 	r.tokens = antlr.NewCommonTokenStream(lexer, antlr.TokenDefaultChannel)
-	r.rewriter = antlr.NewTokenStreamRewriter(r.tokens)
 	p := parser.NewPlaceholderParser(r.tokens)
+	v := visitor.NewPlaceholdersVisitor()
 
-	//p.RemoveErrorListeners()
-
-	r.visitor = visitor.NewPlaceholdersVisitor()
-
+	// trigger parsing and visiting the parse tree
+	// we start from the root rule which is 'template' in our grammar
+	// this will populate the visitor's Node field with the parse tree
 	r.template = p.Template()
+	r.template.Accept(v)
+
+	ctx := &model.Context{CurrentNode: v.Node}
+	b := &strings.Builder{}
+	r.replaceNodes(ctx, b)
+
+	return b.String()
 }
 
-func (r *Replacer) Replace() string {
-
-	r.template.Accept(r.visitor)
-
-	v := r.visitor
-	rewriter := r.rewriter
-	tokens := r.tokens
-
+func (r *Replacer) replaceNodes(c *model.Context, b *strings.Builder) {
 	wg := &sync.WaitGroup{}
-	mu := &sync.Mutex{}
-	for _, node := range v.Nodes {
+	results := make([]string, len(c.CurrentNode.Children))
+	for i, node := range c.CurrentNode.Children {
 		switch node.Type {
 
+		case model.NodeText:
+			results[i] = r.tokens.GetTextFromInterval(antlr.Interval{Start: node.Start, Stop: node.End})
 		case model.NodePlaceholder:
 			wg.Add(1)
 			go func() {
 				defer wg.Done()
-				if content := r.replaceNodeWithPlaceholderValue(tokens, node); content != "" {
-					mu.Lock()
-					rewriter.ReplaceDefault(
-						node.Start,
-						node.End,
-						content,
-					)
-					mu.Unlock()
+				if content := r.replaceNodeWithPlaceholderValue(node); content != "" {
+					results[i] = content
+				} else {
+					results[i] = r.tokens.GetTextFromInterval(antlr.Interval{Start: node.Start, Stop: node.End})
 				}
 			}()
 
@@ -71,65 +66,23 @@ func (r *Replacer) Replace() string {
 			wg.Add(1)
 			go func() {
 				defer wg.Done()
-				if content := r.replaceBlockNodeWithPlaceholderValue(tokens, node); content != "" {
-					mu.Lock()
-					rewriter.ReplaceDefault(
-						node.Start,
-						node.End,
-						content,
-					)
-					mu.Unlock()
+				if content := r.replaceBlockNodeWithPlaceholderValue(c, node); content != "" {
+					results[i] = content
+				} else {
+					results[i] = r.tokens.GetTextFromInterval(antlr.Interval{Start: node.Start, Stop: node.End})
 				}
 			}()
 
 		}
 	}
-
 	wg.Wait()
 
-	return rewriter.GetTextDefault()
-}
-
-func (r *Replacer) ReplaceSync() string {
-
-	r.template.Accept(r.visitor)
-
-	v := r.visitor
-	rewriter := r.rewriter
-	tokens := r.tokens
-
-	mu := &sync.Mutex{}
-	for _, node := range v.Nodes {
-		switch node.Type {
-
-		case model.NodePlaceholder:
-			if content := r.replaceNodeWithPlaceholderValue(tokens, node); content != "" {
-				mu.Lock()
-				rewriter.ReplaceDefault(
-					node.Start,
-					node.End,
-					content,
-				)
-				mu.Unlock()
-			}
-
-		case model.NodeBlock:
-			if content := r.replaceBlockNodeWithPlaceholderValueSync(tokens, node); content != "" {
-				mu.Lock()
-				rewriter.ReplaceDefault(
-					node.Start,
-					node.End,
-					content,
-				)
-				mu.Unlock()
-			}
-		}
+	for _, r := range results {
+		b.WriteString(r)
 	}
-
-	return rewriter.GetTextDefault()
 }
 
-func (r *Replacer) replaceNodeWithPlaceholderValue(tokens *antlr.CommonTokenStream, node *model.Node) string {
+func (r *Replacer) replaceNodeWithPlaceholderValue(node *model.Node) string {
 	p := r.group.GetPlaceholderByName(node.Value.(*model.Placeholder).Name)
 
 	if p == nil {
@@ -145,7 +98,9 @@ func (r *Replacer) replaceNodeWithPlaceholderValue(tokens *antlr.CommonTokenStre
 	return content
 }
 
-func (r *Replacer) replaceBlockNodeWithPlaceholderValue(tokens *antlr.CommonTokenStream, node *model.Node) string {
+func (r *Replacer) replaceBlockNodeWithPlaceholderValue(c *model.Context, node *model.Node) string {
+
+	sc := &model.Context{CurrentNode: node, ParentContext: c}
 
 	p := r.group.GetPlaceholderByName(node.Value.(*model.Placeholder).Name)
 
@@ -153,54 +108,10 @@ func (r *Replacer) replaceBlockNodeWithPlaceholderValue(tokens *antlr.CommonToke
 		return "" // or some error handling
 	}
 
-	interval := antlr.Interval{Start: node.Value.(*model.Placeholder).ContentStart, Stop: node.Value.(*model.Placeholder).ContentEnd}
-	contentInput := tokens.GetTextFromInterval(interval)
-
-	p.Handler(node)
-
-	res := strings.Builder{}
-
-	wg := &sync.WaitGroup{}
-
-	repl := New(r.group)
-	repl.Prepare(contentInput)
-	mu := &sync.Mutex{}
-	for i := 0; i < 2; i++ {
-		wg.Add(1)
-		go func() {
-			defer wg.Done()
-			mu.Lock()
-			res.WriteString(repl.Replace())
-			mu.Unlock()
-		}()
+	strb := &strings.Builder{}
+	for i := 0; i < 5; i++ {
+		r.replaceNodes(sc, strb)
 	}
 
-	wg.Wait()
-
-	return res.String()
-}
-
-func (r *Replacer) replaceBlockNodeWithPlaceholderValueSync(tokens *antlr.CommonTokenStream, node *model.Node) string {
-
-	p := r.group.GetPlaceholderByName(node.Value.(*model.Placeholder).Name)
-
-	if p == nil {
-		return "" // or some error handling
-	}
-
-	interval := antlr.Interval{Start: node.Value.(*model.Placeholder).ContentStart, Stop: node.Value.(*model.Placeholder).ContentEnd}
-	contentInput := tokens.GetTextFromInterval(interval)
-
-	p.Handler(node)
-
-	res := strings.Builder{}
-
-	repl := New(r.group)
-	repl.Prepare(contentInput)
-	for i := 0; i < 2; i++ {
-		res.WriteString(repl.ReplaceSync())
-	}
-
-	return res.String()
-
+	return strb.String()
 }
