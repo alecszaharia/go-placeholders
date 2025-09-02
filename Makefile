@@ -37,5 +37,5 @@ lint:
 
 # Install development tools
 install-tools:
-	bew install antlr
-	go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+	brew install antlr
+	brew install golangci-lint

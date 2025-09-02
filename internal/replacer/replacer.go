@@ -12,9 +12,8 @@ import (
 )
 
 type Replacer struct {
-	group    *placeholder.Group       // group of placeholders
-	tokens   *antlr.CommonTokenStream // all tokens from the lexer
-	template parser.ITemplateContext
+	group  *placeholder.Group       // group of placeholders
+	tokens *antlr.CommonTokenStream // all tokens from the lexer
 }
 
 func New(group *placeholder.Group) *Replacer {
@@ -33,8 +32,8 @@ func (r *Replacer) Replace(inputStr string) string {
 	// trigger parsing and visiting the parse tree
 	// we start from the root rule which is 'template' in our grammar
 	// this will populate the visitor's Node field with the parse tree
-	r.template = p.Template()
-	r.template.Accept(v)
+	template := p.Template()
+	template.Accept(v)
 
 	ctx := &model.Context{CurrentNode: v.Node}
 	b := &strings.Builder{}
@@ -47,6 +46,7 @@ func (r *Replacer) replaceNodes(c *model.Context, b *strings.Builder) {
 	wg := &sync.WaitGroup{}
 	results := make([]string, len(c.CurrentNode.Children))
 	for i, node := range c.CurrentNode.Children {
+
 		switch node.Type {
 
 		case model.NodeText:
@@ -55,7 +55,8 @@ func (r *Replacer) replaceNodes(c *model.Context, b *strings.Builder) {
 			wg.Add(1)
 			go func() {
 				defer wg.Done()
-				if content := r.replaceNodeWithPlaceholderValue(node); content != "" {
+				sc := &model.Context{CurrentNode: node, ParentContext: c}
+				if content := r.replaceNodeWithPlaceholderValue(sc); content != "" {
 					results[i] = content
 				} else {
 					results[i] = r.tokens.GetTextFromInterval(antlr.Interval{Start: node.Start, Stop: node.End})
@@ -66,7 +67,8 @@ func (r *Replacer) replaceNodes(c *model.Context, b *strings.Builder) {
 			wg.Add(1)
 			go func() {
 				defer wg.Done()
-				if content := r.replaceBlockNodeWithPlaceholderValue(c, node); content != "" {
+				sc := &model.Context{CurrentNode: node, ParentContext: c}
+				if content := r.replaceBlockNodeWithPlaceholderValue(sc); content != "" {
 					results[i] = content
 				} else {
 					results[i] = r.tokens.GetTextFromInterval(antlr.Interval{Start: node.Start, Stop: node.End})
@@ -82,26 +84,24 @@ func (r *Replacer) replaceNodes(c *model.Context, b *strings.Builder) {
 	}
 }
 
-func (r *Replacer) replaceNodeWithPlaceholderValue(node *model.Node) string {
+func (r *Replacer) replaceNodeWithPlaceholderValue(c *model.Context) string {
+	node := c.CurrentNode
 	p := r.group.GetPlaceholderByName(node.Value.(*model.Placeholder).Name)
 
 	if p == nil {
 		return "" // or some error handling
 	}
 
-	content, err := p.Handler(node)
+	content, err := p.Handler(c)
 
 	if err != nil && p.FallbackHandler != nil {
-		content, err = p.FallbackHandler(node)
+		content, err = p.FallbackHandler(c)
 	}
-
 	return content
 }
 
-func (r *Replacer) replaceBlockNodeWithPlaceholderValue(c *model.Context, node *model.Node) string {
-
-	sc := &model.Context{CurrentNode: node, ParentContext: c}
-
+func (r *Replacer) replaceBlockNodeWithPlaceholderValue(c *model.Context) string {
+	node := c.CurrentNode
 	p := r.group.GetPlaceholderByName(node.Value.(*model.Placeholder).Name)
 
 	if p == nil {
@@ -110,8 +110,12 @@ func (r *Replacer) replaceBlockNodeWithPlaceholderValue(c *model.Context, node *
 
 	strb := &strings.Builder{}
 	for i := 0; i < 5; i++ {
-		r.replaceNodes(sc, strb)
+		r.replaceNodes(c, strb)
 	}
+
+	p.Handler(c, func(c *model.Context) {
+		strb.WriteString(r.replaceNodes(c, strb))
+	})
 
 	return strb.String()
 }

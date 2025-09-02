@@ -47,56 +47,66 @@ func main() {
 
 	group := placeholder.New()
 	if err := group.AddPlaceholder(&placeholder.Placeholder{
-		Name:    "A",
-		Label:   "Label A",
-		Group:   "Group 1",
-		Display: placeholder.DisplayInline,
-		Handler: func(node *model.Node) (string, error) {
+		BasePlaceholder: placeholder.BasePlaceholder{
+			Name:    "A",
+			Label:   "Label A",
+			Group:   "Group 1",
+			Display: placeholder.DisplayInline,
+		},
+
+		Handler: func(ctx *model.Context) (string, error) {
 			time.Sleep(10 * time.Millisecond)
 			return fmt.Sprintf("[Value_Block_A_%d]", rand.Intn(1000)), nil
 		},
-		FallbackHandler: func(node *model.Node) (string, error) {
+		FallbackHandler: func(ctx *model.Context) (string, error) {
 			return "Fallback_A", nil
 		},
 	}); err != nil {
 		fmt.Errorf("add placeholder failed: %s", err)
 	}
 	if err := group.AddPlaceholder(&placeholder.Placeholder{
-		Name:    "B",
-		Label:   "Label B",
-		Group:   "Group 2",
-		Display: placeholder.DisplayInline,
-		Handler: func(node *model.Node) (string, error) {
+		BasePlaceholder: placeholder.BasePlaceholder{
+			Name:    "B",
+			Label:   "Label B",
+			Group:   "Group 2",
+			Display: placeholder.DisplayInline,
+		},
+		Handler: func(ctx *model.Context) (string, error) {
 			time.Sleep(30 * time.Millisecond)
 			return fmt.Sprintf("[Value_Block_B_%d]", rand.Intn(1000)), nil
 		},
-		FallbackHandler: func(node *model.Node) (string, error) {
+		FallbackHandler: func(ctx *model.Context) (string, error) {
 			return "Fallback_Value_Block_B_", nil
 		},
 	}); err != nil {
 		fmt.Errorf("add placeholder failed: %s", err)
 	}
 	if err := group.AddPlaceholder(&placeholder.Placeholder{
-		Name:    "C",
-		Label:   "Label C",
-		Group:   "Group 2",
-		Display: placeholder.DisplayInline,
-		Handler: func(node *model.Node) (string, error) {
+		BasePlaceholder: placeholder.BasePlaceholder{
+			Name:    "C",
+			Label:   "Label C",
+			Group:   "Group 2",
+			Display: placeholder.DisplayInline,
+		},
+		Handler: func(ctx *model.Context) (string, error) {
 			time.Sleep(30 * time.Millisecond)
 			return fmt.Sprintf("[Value_C_%d]", rand.Intn(1000)), nil
 		},
-		FallbackHandler: func(node *model.Node) (string, error) {
+		FallbackHandler: func(ctx *model.Context) (string, error) {
 			return "Fallback_Value_Block_C_", nil
 		},
 	}); err != nil {
 		fmt.Errorf("add placeholder failed: %s", err)
 	}
 	if err := group.AddPlaceholder(&placeholder.Placeholder{
-		Name:    "placeholder",
-		Label:   "Label placeholder",
-		Group:   "Group 2",
-		Display: placeholder.DisplayInline,
-		Handler: func(node *model.Node) (string, error) {
+		BasePlaceholder: placeholder.BasePlaceholder{
+			Name:    "placeholder",
+			Label:   "Label placeholder",
+			Group:   "Group 2",
+			Display: placeholder.DisplayInline,
+		},
+		Handler: func(ctx *model.Context) (string, error) {
+			node := ctx.CurrentNode
 			m := node.Value.(*model.Placeholder)
 			decodedBytes, err := base64.StdEncoding.DecodeString(strings.Trim(m.Attrs[0].Value, "'"))
 			//time.Sleep(50 * time.Millisecond)
@@ -105,7 +115,7 @@ func main() {
 			}
 			return string(decodedBytes), nil
 		},
-		FallbackHandler: func(node *model.Node) (string, error) {
+		FallbackHandler: func(ctx *model.Context) (string, error) {
 			return "Fallback_Value_Block_C_", nil
 		},
 	}); err != nil {

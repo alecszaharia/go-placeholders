@@ -9,11 +9,6 @@ const (
 	NodeRoot
 )
 
-// Chunk represents a piece of text or a placeholder
-type Chunk interface {
-	Text | Placeholder
-}
-
 // Node represents a node in the parse tree
 type Node struct {
 	Type         NodeType    // node type
