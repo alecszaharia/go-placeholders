@@ -5,6 +5,7 @@ import (
 	"antrl/internal/model"
 	"antrl/internal/placeholder"
 	"antrl/internal/visitor"
+	"errors"
 	"strings"
 	"sync"
 
@@ -56,7 +57,7 @@ func (r *Replacer) replaceNodes(c *model.Context, b *strings.Builder) {
 			go func() {
 				defer wg.Done()
 				sc := &model.Context{CurrentNode: node, ParentContext: c}
-				if content := r.replaceNodeWithPlaceholderValue(sc); content != "" {
+				if content, err := r.replaceNodeWithPlaceholderValue(sc); err == nil {
 					results[i] = content
 				} else {
 					results[i] = r.tokens.GetTextFromInterval(antlr.Interval{Start: node.Start, Stop: node.End})
@@ -68,7 +69,7 @@ func (r *Replacer) replaceNodes(c *model.Context, b *strings.Builder) {
 			go func() {
 				defer wg.Done()
 				sc := &model.Context{CurrentNode: node, ParentContext: c}
-				if content := r.replaceBlockNodeWithPlaceholderValue(sc); content != "" {
+				if content, err := r.replaceBlockNodeWithPlaceholderValue(sc); err == nil {
 					results[i] = content
 				} else {
 					results[i] = r.tokens.GetTextFromInterval(antlr.Interval{Start: node.Start, Stop: node.End})
@@ -84,38 +85,38 @@ func (r *Replacer) replaceNodes(c *model.Context, b *strings.Builder) {
 	}
 }
 
-func (r *Replacer) replaceNodeWithPlaceholderValue(c *model.Context) string {
+func (r *Replacer) replaceNodeWithPlaceholderValue(c *model.Context) (string, error) {
 	node := c.CurrentNode
-	p := r.group.GetPlaceholderByName(node.Value.(*model.Placeholder).Name)
+	p := r.group.GetPlaceholderByName(node.Value.(*model.ParsedPlaceholder).Name)
 
 	if p == nil {
-		return "" // or some error handling
+		return "", errors.New("placeholder not found") // or some error handling
 	}
 
-	content, err := p.Handler(c)
+	content, err := p.Handler(c, nil)
 
 	if err != nil && p.FallbackHandler != nil {
-		content, err = p.FallbackHandler(c)
+		content, err = p.FallbackHandler(c, nil)
 	}
-	return content
+	return content, nil
 }
 
-func (r *Replacer) replaceBlockNodeWithPlaceholderValue(c *model.Context) string {
+func (r *Replacer) replaceBlockNodeWithPlaceholderValue(c *model.Context) (string, error) {
 	node := c.CurrentNode
-	p := r.group.GetPlaceholderByName(node.Value.(*model.Placeholder).Name)
+	p := r.group.GetPlaceholderByName(node.Value.(*model.ParsedPlaceholder).Name)
 
 	if p == nil {
-		return "" // or some error handling
+		return "", errors.New("placeholder not found") // or some error handling
 	}
 
 	strb := &strings.Builder{}
-	for i := 0; i < 5; i++ {
+
+	_, err := p.Handler(c, func(c *model.Context) {
 		r.replaceNodes(c, strb)
+	})
+	if err != nil {
+		return "", err
 	}
 
-	p.Handler(c, func(c *model.Context) {
-		strb.WriteString(r.replaceNodes(c, strb))
-	})
-
-	return strb.String()
+	return strb.String(), nil
 }

@@ -35,7 +35,7 @@ type Text struct {
 	Text string
 }
 
-type Placeholder struct {
+type ParsedPlaceholder struct {
 	Name         string
 	IsBlock      bool
 	Attrs        []*Attr
@@ -97,10 +97,20 @@ func (c *Context) IsRoot() bool {
 	return c.ParentContext == nil
 }
 
-func (c *Context) GetPlaceholderByName(name string) bool {
-	panic("implement me: GetPlaceholderByName")
+func (c *Context) GetPlaceholderByName(name string) *Node {
+	for _, node := range c.ParentContext.CurrentNode.Children {
+		if (node.Type == NodePlaceholder || node.Type == NodeBlock) && node.Value.(*ParsedPlaceholder).Name == name {
+			return node
+		}
+	}
+	return nil
 }
 
-func (c *Context) GetPlaceholderByNameAndAttr(name string, attr string, value string) bool {
-	panic("implement me: GetPlaceholderByNameAndAttr")
+func (c *Context) GetPlaceholderByNameAndAttr(name string, attr string, value string) *Node {
+	for _, node := range c.ParentContext.CurrentNode.Children {
+		if node.Value.(*ParsedPlaceholder).Name == name {
+			return node
+		}
+	}
+	return nil
 }

@@ -4,7 +4,8 @@ import "antrl/internal/model"
 
 type DisplayType int
 
-type HandlerFunc func(ctx *model.Context) (string, error)
+type ReplaceFunc func(ctx *model.Context)
+type HandlerFunc func(ctx *model.Context, r ReplaceFunc) (string, error)
 
 var DisplayMap = map[DisplayType]string{DisplayInline: "inline", DisplayBlock: "block"}
 
