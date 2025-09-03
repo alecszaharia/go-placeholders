@@ -26,6 +26,17 @@ func (n *Node) AddChild(s *Node) {
 	n.Children = append(n.Children, s)
 }
 
+func (n *Node) GetPlaceholder() *ParsedPlaceholder {
+	if n.Value == nil {
+		return nil
+	}
+	placeholder, ok := n.Value.(*ParsedPlaceholder)
+	if !ok {
+		return nil
+	}
+	return placeholder
+}
+
 type Attr struct {
 	Name  string
 	Value string
@@ -38,7 +49,7 @@ type Text struct {
 type ParsedPlaceholder struct {
 	Name         string
 	IsBlock      bool
-	Attrs        []*Attr
+	Attrs        map[string]string
 	ContentStart int // start token index of the content (for block placeholders)
 	ContentEnd   int // end token index of the content (for block placeholders)
 }
@@ -98,8 +109,11 @@ func (c *Context) IsRoot() bool {
 }
 
 func (c *Context) GetPlaceholderByName(name string) *Node {
+	if c.ParentContext == nil || c.ParentContext.CurrentNode == nil {
+		return nil
+	}
 	for _, node := range c.ParentContext.CurrentNode.Children {
-		if (node.Type == NodePlaceholder || node.Type == NodeBlock) && node.Value.(*ParsedPlaceholder).Name == name {
+		if (node.Type == NodePlaceholder || node.Type == NodeBlock) && node.GetPlaceholder().Name == name {
 			return node
 		}
 	}
@@ -107,9 +121,15 @@ func (c *Context) GetPlaceholderByName(name string) *Node {
 }
 
 func (c *Context) GetPlaceholderByNameAndAttr(name string, attr string, value string) *Node {
+	if c.ParentContext == nil || c.ParentContext.CurrentNode == nil {
+		return nil
+	}
+
 	for _, node := range c.ParentContext.CurrentNode.Children {
-		if node.Value.(*ParsedPlaceholder).Name == name {
-			return node
+		if node.GetPlaceholder().Name == name {
+			if v, ok := node.GetPlaceholder().Attrs[attr]; ok && v == value {
+				return node
+			}
 		}
 	}
 	return nil

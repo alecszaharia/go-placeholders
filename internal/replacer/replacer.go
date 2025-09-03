@@ -6,6 +6,7 @@ import (
 	"antrl/internal/placeholder"
 	"antrl/internal/visitor"
 	"errors"
+	"fmt"
 	"strings"
 	"sync"
 
@@ -23,12 +24,20 @@ func New(group *placeholder.Group) *Replacer {
 	}
 }
 
+type bailErrorListener struct{ *antlr.DefaultErrorListener }
+
+func (l bailErrorListener) SyntaxError(r antlr.Recognizer, s interface{}, line, col int, msg string, e antlr.RecognitionException) {
+	panic(fmt.Errorf("syntax error at %d:%d: %s", line, col, msg))
+}
+
 func (r *Replacer) Replace(inputStr string) string {
 	input := antlr.NewInputStream(inputStr)
 	lexer := parser.NewPlaceholderLexer(input)
 	r.tokens = antlr.NewCommonTokenStream(lexer, antlr.TokenDefaultChannel)
 	p := parser.NewPlaceholderParser(r.tokens)
 	v := visitor.NewPlaceholdersVisitor()
+	p.RemoveErrorListeners() // remove default ConsoleErrorListener
+	p.AddErrorListener(bailErrorListener{&antlr.DefaultErrorListener{}})
 
 	// trigger parsing and visiting the parse tree
 	// we start from the root rule which is 'template' in our grammar
@@ -87,7 +96,7 @@ func (r *Replacer) replaceNodes(c *model.Context, b *strings.Builder) {
 
 func (r *Replacer) replaceNodeWithPlaceholderValue(c *model.Context) (string, error) {
 	node := c.CurrentNode
-	p := r.group.GetPlaceholderByName(node.Value.(*model.ParsedPlaceholder).Name)
+	p := r.group.GetPlaceholderByName(node.GetPlaceholder().Name)
 
 	if p == nil {
 		return "", errors.New("placeholder not found") // or some error handling
@@ -98,12 +107,12 @@ func (r *Replacer) replaceNodeWithPlaceholderValue(c *model.Context) (string, er
 	if err != nil && p.FallbackHandler != nil {
 		content, err = p.FallbackHandler(c, nil)
 	}
-	return content, nil
+	return content, err
 }
 
 func (r *Replacer) replaceBlockNodeWithPlaceholderValue(c *model.Context) (string, error) {
 	node := c.CurrentNode
-	p := r.group.GetPlaceholderByName(node.Value.(*model.ParsedPlaceholder).Name)
+	p := r.group.GetPlaceholderByName(node.GetPlaceholder().Name)
 
 	if p == nil {
 		return "", errors.New("placeholder not found") // or some error handling
